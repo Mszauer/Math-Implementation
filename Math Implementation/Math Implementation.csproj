@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18817ECD-2E86-463C-B93C-EB3AA3293E81}</ProjectGuid>
+    <ProjectGuid>{7C5493AD-8879-4989-828B-83454C1A59FB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vector2</RootNamespace>
-    <AssemblyName>Vector2</AssemblyName>
+    <RootNamespace>Math_Implementation</RootNamespace>
+    <AssemblyName>Math_Implementation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

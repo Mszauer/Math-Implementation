@@ -68,7 +68,7 @@ namespace Vector2 {
         public void Normalize() {
             X /= Length();
             Y /= Length();
-        }
+        } 
         public float AngleBetween(Vector2 vector) {
             double angle = 0.0;
             double cosAngle = (double)(Dot(this, vector)) / (double)(Dot(Length(), vector.Length()));
@@ -80,6 +80,16 @@ namespace Vector2 {
             double cosAngle = (double)(Dot(vector1, vector2)) / (double)(Dot(vector1.Length(),vector2.Length()));
             angle = Math.Acos(cosAngle);
             return (float)angle;
+        }
+        public float Cross(Vector2 vector1,Vector2 vector2) {
+            float result = 0.0f;
+            result = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
+            return result;
+        }
+        public float Cross(Vector2 vector) {
+            float result = 0.0f;
+            result = (X * vector.Y) - (Y * vector.X);
+            return result;
         }
     }
 

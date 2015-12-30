@@ -16,7 +16,10 @@ namespace Math_Implementation {
         public static Vector2 operator +(Vector2 vector1, Vector2 vector2) {
             return new Vector2(vector1.X + vector2.X, vector1.Y + vector2.Y);
         }
-        public void Addition(Vector2 vector) {
+        public static Vector2 Add (Vector2 vector1, Vector2 vector2) {
+            return new Vector2(vector1.X + vector2.X, vector1.Y + vector2.Y);
+        }
+        public void Add(Vector2 vector) {
             X += vector.X;
             Y += vector.Y;
         }
@@ -24,7 +27,11 @@ namespace Math_Implementation {
             Vector2 result = new Vector2(vector1.X - vector2.X, vector1.Y - vector2.Y);
             return result;
         }
-        public void Subtraction(Vector2 vector) {
+        public static Vector2 Subtract(Vector2 vector1, Vector2 vector2) {
+            Vector2 result = new Vector2(vector1.X - vector2.X, vector1.Y - vector2.Y);
+            return result;
+        }
+        public void Subtract(Vector2 vector) {
             X -= vector.X;
             Y -= vector.Y;
         }
@@ -32,7 +39,11 @@ namespace Math_Implementation {
             Vector2 result = new Vector2(vector.X * scale, vector.Y * scale);
             return result;
         }
-        public void ScalarMultiplication(float scale) {
+        public static Vector2 ScalarMultiply(Vector2 vector, float scale) {
+            Vector2 result = new Vector2(vector.X * scale, vector.Y * scale);
+            return result;
+        }
+        public void ScalarMultiply(float scale) {
             X *= scale;
             Y *= scale;
         }
@@ -40,7 +51,11 @@ namespace Math_Implementation {
             Vector2 result = new Vector2(vector1.X * vector2.X, vector1.Y * vector2.Y);
             return result;
         }
-        public void ScalarMultiplication(Vector2 scale) {
+        public static Vector2 ScalarMultiply (Vector2 vector1, Vector2 vector2) {
+            Vector2 result = new Vector2(vector1.X * vector2.X, vector1.Y * vector2.Y);
+            return result;
+        }
+        public void ScalarMultiply(Vector2 scale) {
             X *= scale.X;
             Y *= scale.Y;
         }
@@ -52,24 +67,34 @@ namespace Math_Implementation {
             Vector2 result = new Vector2(vector1.X / vector2.X, vector1.Y / vector2.Y);
             return result;
         }
-        public void ScalarDivision(float scale) {
+        public static Vector2 ScalarDivide (Vector2 vector, float scale) {
+            Vector2 result = new Vector2(vector.X / scale, vector.Y / scale);
+            return result;
+        }
+        public static Vector2 ScalarDivide(Vector2 vector1, Vector2 vector2) {
+            Vector2 result = new Vector2(vector1.X / vector2.X, vector1.Y / vector2.Y);
+            return result;
+        }
+        public void ScalarDivide(float scale) {
             X /= scale;
             Y /= scale;
         }
-        public void ScalarDivision(Vector2 scale) {
+        public void ScalarDivide(Vector2 scale) {
             X /= scale.X;
             Y /= scale.Y;
         }
-        public float Dot(Vector2 vector1, Vector2 vector2) {
+        public static float Dot(Vector2 vector1, Vector2 vector2) {
             float xComponent = vector1.X * vector2.X;
             float yComponent = vector1.Y * vector2.Y;
             return xComponent + yComponent;
         }
-        public float Length(Vector2 vector) {
-            double length = 0.0;
-            length = (double)Dot(vector, vector);
-            float result = (float)Math.Sqrt(length);
-            return result;
+        public  float Dot(Vector2 vector) {
+            float xComponent = X * vector.X;
+            float yComponent = Y * vector.Y;
+            return xComponent + yComponent;
+        }
+        public static float Length(Vector2 vector) {
+            return (float)Math.Sqrt((double)Dot(vector, vector));
         }
         public float Length() {
             return (float)Math.Sqrt((double)Dot(this, this));
@@ -77,8 +102,11 @@ namespace Math_Implementation {
         public float LengthSquared() {
             return Dot(this, this);
         }
-        public Vector2 Normalize(Vector2 vector) {
-            float length = Length();
+        public static float LengthSquared(Vector2 vector) {
+            return Dot(vector, vector);
+        }
+        public static Vector2 Normalize(Vector2 vector) {
+            float length = Length(vector);
             vector.X /= length;
             vector.Y /= length;
             return new Vector2(vector.X, vector.Y);
@@ -90,7 +118,7 @@ namespace Math_Implementation {
         public float AngleBetween(Vector2 vector) {
             return (float)Math.Acos((double)Dot(Normalize(this), Normalize(vector)));
         }
-        public float AngleBetween(Vector2 vector1, Vector2 vector2) {
+        public static float AngleBetween(Vector2 vector1, Vector2 vector2) {
             return (float)Math.Acos((double)Dot(Normalize(vector1), Normalize(vector2)));
         }
         public static Vector2 operator -(Vector2 vector) {
@@ -101,22 +129,22 @@ namespace Math_Implementation {
             Y *= -1;
         }
         public static bool operator ==(Vector2 vector1,Vector2 vector2) {
-            return (vector1.X == vector2.X) && (vector1.Y == vector2.Y )? true : false;
+            return vector1.Length()==vector2.Length() ? true : false;
         }
         public static bool operator !=(Vector2 vector1, Vector2 vector2) {
-            return (vector1.X != vector2.X) && (vector1.Y != vector2.Y) ? true : false;
+            return vector1.Length() != vector2.Length() ? true : false;
         }
         public static bool operator >=(Vector2 vector1, Vector2 vector2) {
-            return (vector1.X >= vector2.X) && (vector1.Y >= vector2.Y) ? true : false;
+            return vector1.Length() >= vector2.Length() ? true : false;
         }
         public static bool operator <=(Vector2 vector1, Vector2 vector2) {
-            return (vector1.X <= vector2.X) && (vector1.Y <= vector2.Y) ? true : false;
+            return vector1.Length() <= vector2.Length() ? true : false;
         }
         public static bool operator <(Vector2 vector1, Vector2 vector2) {
-            return (vector1.X < vector2.X) && (vector1.Y < vector2.Y) ? true : false;
+            return vector1.Length() < vector2.Length() ? true : false;
         }
         public static bool operator >(Vector2 vector1, Vector2 vector2) {
-            return (vector1.X > vector2.X) && (vector1.Y > vector2.Y) ? true : false;
+            return vector1.Length() > vector2.Length() ? true : false;
         }
     }
 }

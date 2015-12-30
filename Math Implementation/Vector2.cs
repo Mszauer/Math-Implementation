@@ -124,27 +124,31 @@ namespace Math_Implementation {
         public static Vector2 operator -(Vector2 vector) {
             return new Vector2(vector.X * -1, vector.Y * -1);
         }
-        public void Negate() {
+        public void Negate() { 
             X *= -1;
             Y *= -1;
         }
+        public static void Negate(Vector2 vector) {
+            vector.X *= -1;
+            vector.Y *= -1;
+        }
         public static bool operator ==(Vector2 vector1,Vector2 vector2) {
-            return vector1.Length()==vector2.Length() ? true : false;
+            return vector1.X==vector2.X && vector1.Y ==vector2.Y ? true : false; 
         }
         public static bool operator !=(Vector2 vector1, Vector2 vector2) {
-            return vector1.Length() != vector2.Length() ? true : false;
+            return vector1.X != vector2.X && vector1.Y != vector2.Y ? true : false;
         }
         public static bool operator >=(Vector2 vector1, Vector2 vector2) {
-            return vector1.Length() >= vector2.Length() ? true : false;
+            return vector1.LengthSquared() >= vector2.LengthSquared() ? true : false;
         }
         public static bool operator <=(Vector2 vector1, Vector2 vector2) {
-            return vector1.Length() <= vector2.Length() ? true : false;
+            return vector1.LengthSquared() <= vector2.LengthSquared() ? true : false;
         }
         public static bool operator <(Vector2 vector1, Vector2 vector2) {
-            return vector1.Length() < vector2.Length() ? true : false;
+            return vector1.LengthSquared() < vector2.LengthSquared() ? true : false;
         }
         public static bool operator >(Vector2 vector1, Vector2 vector2) {
-            return vector1.Length() > vector2.Length() ? true : false;
+            return vector1.LengthSquared() > vector2.LengthSquared() ? true : false;
         }
     }
 }

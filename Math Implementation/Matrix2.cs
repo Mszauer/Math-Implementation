@@ -112,7 +112,26 @@ namespace Math_Implementation {
             result[1, 1] = (matrix1[0, 1] * matrix2[1, 0]) + (matrix1[1, 1] * matrix2[1, 1]);
             return result;
         }
-        public static Matrix2 Divide(Matrix2 matrix1,Matrix2 matrix2) {
+        public static Matrix2 ScalarMultiply(Matrix2 matrix,float scale) {
+            Matrix2 result = matrix;
+            for (int i = 0; i < 4; i++) {
+                result[i] *= scale;
+            }
+            return result;
+        }
+        public void ScalarMultiply(float scale) {
+            for (int i = 0; i < 4; i++) {
+                this[i] *= scale;
+            }
+        }
+        public static Matrix2 operator *(Matrix2 matrix, float scale) {
+            Matrix2 result = matrix;
+            for (int i = 0; i < 4; i++) {
+                result[i] *= scale;
+            }
+            return result;
+        }
+        public static Matrix2 ScalarDivide(Matrix2 matrix1,Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
             result[0, 0] = matrix1[0, 0] / matrix2[0, 0];
             result[0, 1] = matrix1[0, 1] / matrix2[0, 1];
@@ -120,7 +139,7 @@ namespace Math_Implementation {
             result[1, 1] = matrix1[1, 1] / matrix2[1, 1];
             return result;
         }
-        public  void Divide(Matrix2 matrix) {
+        public  void ScalarDivide(Matrix2 matrix) {
             Matrix2 result = new Matrix2();
             this[0, 0] /= matrix[0, 0];
             this[0, 1] /= matrix[0, 1];

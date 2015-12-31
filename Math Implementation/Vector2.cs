@@ -122,15 +122,15 @@ namespace Math_Implementation {
             return (float)Math.Acos((double)Dot(Normalize(vector1), Normalize(vector2)));
         }
         public static Vector2 operator -(Vector2 vector) {
-            return new Vector2(vector.X * -1, vector.Y * -1);
+            return new Vector2(vector.X * -1.0f, vector.Y * -1.0f);
         }
         public void Negate() { 
-            X *= -1;
-            Y *= -1;
+            X *= -1.0f;
+            Y *= -1.0f;
         }
         public static void Negate(Vector2 vector) {
-            vector.X *= -1;
-            vector.Y *= -1;
+            vector.X *= -1.0f;
+            vector.Y *= -1.0f;
         }
         public static bool operator ==(Vector2 vector1,Vector2 vector2) {
             return vector1.X==vector2.X && vector1.Y ==vector2.Y ? true : false; 

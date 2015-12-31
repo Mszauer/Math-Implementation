@@ -5,6 +5,25 @@ namespace Math_Implementation {
     public class Vector2 {
         public float X = 0.0f;
         public float Y = 0.0f;
+        public float this[int i] {
+            get {
+                if (i == 0) {
+                    return X;
+                }
+                else if (i == 1) {
+                    return Y;
+                }
+                return 0;
+            }
+            set {
+                if (i == 0) {
+                    X = value;
+                }
+                else if (i == 1) {
+                    Y = value;
+                }
+            }
+        }
         public Vector2(float _x, float _y) {
             X = _x;
             Y = _y;

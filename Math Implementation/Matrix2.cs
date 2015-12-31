@@ -23,7 +23,7 @@ namespace Math_Implementation {
             Matrix = new float[] { 1, 0,
                                    0, 1 };
         }
-        public Matrix2(params int[] values) {
+        public Matrix2(params float[] values) {
             if (values.Length != 4) {
                 Console.WriteLine("Invalid amount of numbers, Values.Length: " + values.Length);
                 throw new System.Exception();
@@ -153,6 +153,15 @@ namespace Math_Implementation {
             result[1, 0] = matrix1[1, 0] / matrix2[1, 0];
             result[1, 1] = matrix1[1, 1] / matrix2[1, 1];
             return result;
+        }
+        public static Matrix2 Transpose(Matrix2 matrix) {
+            return new Matrix2(matrix[0, 0], matrix[1, 0], matrix[0, 1], matrix[1, 1]);
+        }
+        public void Transpose() {
+            float[] m = Transpose(this).Matrix;
+            for (int i = 0; i < 4; i++) {
+                Matrix[i] = m[i];
+            }
         }
     }
 }

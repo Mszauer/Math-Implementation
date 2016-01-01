@@ -211,20 +211,20 @@ namespace Math_Implementation {
         }
         public static Vector2 Multiply(Matrix2 matrix, Vector2 vector) {
             Vector2 result = new Vector2();
-            result[0] = (matrix[0, 0] * vector[0]) + (matrix[0, 1] * vector[0]);
-            result[1] = (matrix[1, 0] * vector[1]) + (matrix[1, 1] * vector[1]);
+            result[0] = (matrix[0, 0] * vector[0]) + (matrix[0, 1] * vector[1]);
+            result[1] = (matrix[1, 0] * vector[0]) + (matrix[1, 1] * vector[1]);
             return result;                       
         }
         public Vector2 Multiply(Vector2 vector) {
             Vector2 result = new Vector2();
-            result[0] = (this[0, 0] * vector[0]) + (this[0, 1] * vector[0]);
-            result[1] = (this[1, 0] * vector[1]) + (this[1, 1] * vector[1]);
+            result[0] = (this[0, 0] * vector[0]) + (this[0, 1] * vector[1]);
+            result[1] = (this[1, 0] * vector[0]) + (this[1, 1] * vector[1]);
             return result;
         }
         public static Vector2 operator *(Matrix2 matrix, Vector2 vector) {
             Vector2 result = new Vector2();
-            result[0] = (matrix[0, 0] * vector[0]) + (matrix[0, 1] * vector[0]);
-            result[1] = (matrix[1, 0] * vector[1]) + (matrix[1, 1] * vector[1]);
+            result[0] = (matrix[0, 0] * vector[0]) + (matrix[0, 1] * vector[1]);
+            result[1] = (matrix[1, 0] * vector[0]) + (matrix[1, 1] * vector[1]);
             return result;
         }
         public static Matrix2 Rotation(float angle) {

@@ -55,9 +55,9 @@ namespace Math_Implementation {
             if (c[0, 0] != 1.0f/5.0f || c[0, 1] != 2.0f/6.0f || c[1, 0] != 3.0f/7.0f || c[1, 1] != 4.0f/8.0f) {
                 Error("Division operator is wrong");
             }
-            Vector2 v = new Vector2(1, 1);
-            v = a * v;
-            if (v[0] != 3.0f || v[1] != 7.0f) {
+            Vector2 v = new Vector2(5, 9);
+            v = b * v;
+            if (v[0] != 50.0f || v[1] != 135.0f) {
                 Error("Vector Multiplication opperand wrong");
             }
 

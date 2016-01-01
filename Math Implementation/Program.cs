@@ -37,16 +37,30 @@ namespace Math_Implementation {
                 Error("Instance GetValue broken");
             }
 
-            Matrix2 b = new Matrix2(5, 6, 7, 8);
+            Matrix2 b = new Matrix2(5, 6, 
+                                    7, 8);
             Matrix2 c = a + b;
             if (c[0,0] != 6 ||c[0,1] != 8 || c[1,0] != 10 ||c[1,1] != 12) {
                 Error("Addition operator is wrong");
             }
             c = a - b;
-            if (c[0, 0] != 4 || c[0, 1] != 4 || c[1, 0] != 4 || c[1, 1] != 4) {
+            if (c[0, 0] != -4 || c[0, 1] != -4 || c[1, 0] != -4 || c[1, 1] != -4) {
                 Error("Subtraction operator is wrong");
             }
-            /*
+            c = c * 2;
+            if (c[0, 0] != -8 || c[0, 1] != -8 || c[1, 0] != -8 || c[1, 1] != -8) {
+                Error("multiply operator is wrong");
+            }
+            c = a / b;
+            if (c[0, 0] != 1.0f/5.0f || c[0, 1] != 2.0f/6.0f || c[1, 0] != 3.0f/7.0f || c[1, 1] != 4.0f/8.0f) {
+                Error("Division operator is wrong");
+            }
+            Vector2 v = new Vector2(1, 1);
+            v = a * v;
+            if (v[0] != 3.0f || v[1] != 7.0f) {
+                Error("Vector Multiplication opperand wrong");
+            }
+
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");
 
@@ -54,7 +68,6 @@ namespace Math_Implementation {
             c = Matrix2.Inverse(a);
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");
-            */
             Console.ReadLine();
         }
     }

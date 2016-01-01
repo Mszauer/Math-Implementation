@@ -227,9 +227,8 @@ namespace Math_Implementation {
             result[1] = (matrix[1, 0] * vector[1]) + (matrix[1, 1] * vector[1]);
             return result;
         }
-        public static Matrix2 Rotation(Matrix2 matrix) {
-            Matrix2 result = new Matrix2();
-
+        public static Matrix2 Rotation(float angle) {
+            Matrix2 result = new Matrix2((float)Math.Cos(angle),-(float)Math.Sin(angle),(float)Math.Sin(angle),(float)Math.Cos(angle));
             return result;
         }
     }

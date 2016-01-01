@@ -55,10 +55,12 @@ namespace Math_Implementation {
             if (c[0, 0] != 1.0f/5.0f || c[0, 1] != 2.0f/6.0f || c[1, 0] != 3.0f/7.0f || c[1, 1] != 4.0f/8.0f) {
                 Error("Division operator is wrong");
             }
-            Vector2 v = new Vector2(5, 9);
-            v = b * v;
-            if (v[0] != 50.0f || v[1] != 135.0f) {
+            Vector2 v = new Vector2(2, 3);
+            Matrix2 d = new Matrix2(4, 5, 6, 7);
+            v = d * v;
+            if (v[0] != 23.0f || v[1] != 33.0f) {
                 Error("Vector Multiplication opperand wrong");
+                Console.WriteLine("V[0]: " + v[0] + " V[1]: " + v[1]);
             }
 
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());

@@ -1,8 +1,11 @@
 ﻿using System;
 
 namespace Math_Implementation {
+    // This matrix is ROW major
+    // M[i, j] <- I is row, J is column
     class Matrix2 {
         public float[] Matrix;
+
         public float this[int i] {
             get {
                 return Matrix[i];
@@ -11,18 +14,21 @@ namespace Math_Implementation {
                 Matrix[i] = value;
             }
         }
-        public float this[int col, int row] {
+
+        public float this[int i, int j] {
             get {
-                return Matrix[(col * 2) + row];
+                return Matrix[(i * 2) + j];
             }
             set {
-                Matrix[(col * 2) + row] = value;
+                Matrix[(i * 2) + j] = value;
             }
         }
+
         public Matrix2() {
             Matrix = new float[] { 1, 0,
                                    0, 1 };
         }
+
         public Matrix2(params float[] values) {
             if (values.Length != 4) {
                 Console.WriteLine("Invalid amount of numbers, Values.Length: " + values.Length);
@@ -34,58 +40,60 @@ namespace Math_Implementation {
             }
         }
 
-        public float GetValue(int row, int col) {
-            return Matrix[row * Matrix.Length + col];
+        // start here
+
+        public float GetValue(int i, int j) {// i =row j = col
+            return Matrix[(i * 2) + j];
         }
-        public static float GetValue(Matrix2 matrix, int row, int col) {
-            return matrix.Matrix[row * 2 + col];
+        public static float GetValue(Matrix2 matrix, int i, int j) {
+            return matrix.Matrix[(i * 2) + j];
         }
         public static Matrix2 Add(Matrix2 matrix1, Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    result[row, col] = matrix1[row, col] + matrix2[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    result[i, j] = matrix1[i, j] + matrix2[i, j];
                 }
             }
             return result;
         }
         public void Add(Matrix2 matrix) {
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    this[row, col] = matrix[row, col] + this[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    this[i, j] = matrix[i, j] + this[i, j];
                 }
             }
         }
         public static Matrix2 operator +(Matrix2 matrix1, Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    result[row, col] = matrix1[row, col] + matrix2[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    result[i, j] = matrix1[i, j] + matrix2[i, j];
                 }
             }
             return result;
         }
         public static Matrix2 Subtract(Matrix2 matrix1, Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    result[row, col] = matrix1[row, col] - matrix2[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    result[i, j] = matrix1[i, j] - matrix2[i, j];
                 }
             }
             return result;
         }
         public void Subtract(Matrix2 matrix) {
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    this[row, col] = matrix[row, col] - this[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    this[i, j] = matrix[i, j] - this[i, j];
                 }
             }
         }
         public static Matrix2 operator -(Matrix2 matrix1, Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
-            for (int row = 0; row < 2; row++) {
-                for (int col = 0; col < 2; col++) {
-                    result[row, col] = matrix1[row, col] - matrix2[row, col];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    result[i, j] = matrix1[i, j] - matrix2[i, j];
                 }
             }
             return result;

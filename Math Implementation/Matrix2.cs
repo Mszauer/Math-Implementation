@@ -228,6 +228,7 @@ namespace Math_Implementation {
             return result;
         }
         public static Matrix2 Rotation(float angle) {
+            angle = angle * (float)(Math.PI / 180);
             Matrix2 result = new Matrix2((float)Math.Cos(angle),-(float)Math.Sin(angle),(float)Math.Sin(angle),(float)Math.Cos(angle));
             return result;
         }

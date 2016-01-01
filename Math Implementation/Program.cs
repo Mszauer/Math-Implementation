@@ -63,6 +63,15 @@ namespace Math_Implementation {
                 Console.WriteLine("V[0]: " + v[0] + " V[1]: " + v[1]);
             }
 
+            Vector2 v2 = new Vector2(1, 0);
+            Matrix2 rotation = Matrix2.Rotation(90.0f);
+            v2 = rotation*v2;
+            if (v[0] != 0.0f || v[1] != 1.0f) {
+                Error("Vector Multiplication opperand wrong");
+                Console.WriteLine("V2[0]: " + v2[0] + " V2[1]: " + v2[1]);
+            }
+
+
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");
 

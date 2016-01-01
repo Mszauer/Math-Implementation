@@ -66,7 +66,7 @@ namespace Math_Implementation {
             Vector2 v2 = new Vector2(1, 0);
             Matrix2 rotation = Matrix2.Rotation(90.0f);
             v2 = rotation*v2;
-            if (v[0] != 0.0f || v[1] != 1.0f) {
+            if ( 0.0f-v[0]>  0.00001f ||1.0f - v[1] > 0.00001f) {
                 Error("Vector Multiplication opperand wrong");
                 Console.WriteLine("V2[0]: " + v2[0] + " V2[1]: " + v2[1]);
             }

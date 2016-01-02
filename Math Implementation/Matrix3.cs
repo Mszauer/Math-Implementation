@@ -1,10 +1,171 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Math_Implementation {
     class Matrix3 {
+        //i = row, j = col
+        public float[] Matrix = null;
+        public float this[int i,int j] {
+            get {
+                return Matrix[(i * 3) + j];
+            }
+            set {
+                Matrix[(i * 3) + j] = value;
+            }
+        }
+        public float this[int i] {
+            get { return Matrix[i]; }
+            set { Matrix[i] = value; }
+        }
+        public Matrix3() {
+            Matrix = new float[] {1,0,0,
+                                  0,1,0,
+                                  0,0,1 };
+        }
+        public Matrix3(params float[] values) {
+            Matrix = new float[9];
+            if (values.Length != 9) {
+                Console.WriteLine("Invalid amount of values for Matrix3, Values length: " + values.Length);
+                throw new System.Exception();
+            }
+            for (int i = 0; i < 9; i++) {
+                Matrix[i] = values[i];
+            }
+        }
+        //scalar operators
+        public static Matrix3 operator +(Matrix3 matrixA,Matrix3 matrixB) {
+            Matrix3 result = null;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i, j] = matrixA[i, j] + matrixB[i, j];
+                }
+            }
+            return result;
+        }
+        public static Matrix3 operator -(Matrix3 matrixA, Matrix3 matrixB) {
+            Matrix3 result = null;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i, j] = matrixA[i, j] - matrixB[i, j];
+                }
+            }
+            return result;
+        }
+        public static Matrix3 operator /(Matrix3 matrixA, Matrix3 matrixB) {
+            Matrix3 result = null;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i, j] = matrixA[i, j] / matrixB[i, j];
+                }
+            }
+            return result;
+        }
+        public static Matrix3 operator *(Matrix3 matrixA, float scale) {
+            Matrix3 result = null;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i, j] = matrixA[i, j] * scale;
+                }
+            }
+            return result;
+        }
+        //end scalar operators
+
+        //Matrix multiplication
+        public static Matrix3 operator *(Matrix3 matrixA,Matrix3 matrixB) {
+            Matrix3 result = new Matrix3();
+            result[0, 0] = matrixA[0, 0] * matrixB[0, 0] + matrixA[0, 1] * matrixB[1, 0] + matrixA[0, 2] * matrixB[2, 0];
+            result[0, 1] = matrixA[0, 0] * matrixB[0, 1] + matrixA[0, 1] * matrixB[1, 1] + matrixA[0, 2] * matrixB[2, 1];
+            result[0, 2] = matrixA[0, 0] * matrixB[0, 2] + matrixA[0, 1] * matrixB[1, 2] + matrixA[0, 2] * matrixB[2, 2];
+            result[1, 0] = matrixA[1, 0] * matrixB[0, 0] + matrixA[1, 1] * matrixB[1, 0] + matrixA[1, 2] * matrixB[2, 0];
+            result[1, 1] = matrixA[1, 0] * matrixB[0, 1] + matrixA[1, 1] * matrixB[1, 1] + matrixA[1, 2] * matrixB[2, 1];
+            result[1, 2] = matrixA[1, 0] * matrixB[0, 2] + matrixA[1, 1] * matrixB[1, 2] + matrixA[1, 2] * matrixB[2, 2];
+            result[2, 0] = matrixA[2, 0] * matrixB[0, 0] + matrixA[2, 1] * matrixB[1, 0] + matrixA[2, 2] * matrixB[2, 0];
+            result[2, 1] = matrixA[2, 0] * matrixB[0, 1] + matrixA[2, 1] * matrixB[1, 1] + matrixA[2, 2] * matrixB[2, 1];
+            result[2, 2] = matrixA[2, 0] * matrixB[0, 2] + matrixA[2, 1] * matrixB[1, 2] + matrixA[2, 2] * matrixB[2, 2];
+            return result;
+        }
+
+        //Transpose, row = col, col = row
+        public static Matrix3 Transpose(Matrix3 matrix) {
+            Matrix3 result = new Matrix3();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    result[i, j] = matrix[j, i];
+                }
+            }
+            return result;
+        }
+
+        //Determinant
+        public static float Determinant(Matrix3 matrix) {
+            return (matrix[0, 0] * (matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1]))
+                 - (matrix[0, 1] * (matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0]))
+                 + (matrix[0, 2] * (matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0]));
+        }
+        public float Determinant() {
+            return (this[0, 0] * (this[1, 1] * this[2, 2] - this[1, 2] * this[2, 1]))
+                 - (this[0, 1] * (this[1, 0] * this[2, 2] - this[1, 2] * this[2, 0]))
+                 + (this[0, 2] * (this[1, 0] * this[2, 1] - this[1, 1] * this[2, 0]));
+        }
+
+        //Minor
+        public static Matrix3 Minor(Matrix3 matrix) {
+            Matrix3 result = new Matrix3();
+            result[0, 0] = matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1];
+            result[0, 1] = matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0];
+            result[0, 2] = matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0];
+            result[1, 0] = matrix[0, 1] * matrix[2, 2] - matrix[0, 2] * matrix[2, 1];
+            result[1, 1] = matrix[0, 0] * matrix[2, 2] - matrix[0, 2] * matrix[2, 0];
+            result[1, 2] = matrix[0, 0] * matrix[2, 1] - matrix[0, 1] * matrix[2, 0];
+            result[2, 0] = matrix[0, 1] * matrix[1, 2] - matrix[0, 2] * matrix[1, 1];
+            result[2, 1] = matrix[0, 0] * matrix[1, 2] - matrix[0, 2] * matrix[1, 0];
+            result[2, 2] = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+            return result;
+        }
+        public void Minor() {
+            Matrix3 matrix = this;
+            this[0, 0] = matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1];
+            this[0, 1] = matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0];
+            this[0, 2] = matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0];
+            this[1, 0] = matrix[0, 1] * matrix[2, 2] - matrix[0, 2] * matrix[2, 1];
+            this[1, 1] = matrix[0, 0] * matrix[2, 2] - matrix[0, 2] * matrix[2, 0];
+            this[1, 2] = matrix[0, 0] * matrix[2, 1] - matrix[0, 1] * matrix[2, 0];
+            this[2, 0] = matrix[0, 1] * matrix[1, 2] - matrix[0, 2] * matrix[1, 1];
+            this[2, 1] = matrix[0, 0] * matrix[1, 2] - matrix[0, 2] * matrix[1, 0];
+            this[2, 2] = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+        }
+        //cofactor
+        public static Matrix3 CoFactor(Matrix3 matrix) {
+            Matrix3 result = Minor(matrix);
+            result[0, 0] = matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1] * 1;
+            result[0, 1] = matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0] * -1;
+            result[0, 2] = matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0] * 1;
+            result[1, 0] = matrix[0, 1] * matrix[2, 2] - matrix[0, 2] * matrix[2, 1] * -1;
+            result[1, 1] = matrix[0, 0] * matrix[2, 2] - matrix[0, 2] * matrix[2, 0] * 1;
+            result[1, 2] = matrix[0, 0] * matrix[2, 1] - matrix[0, 1] * matrix[2, 0] * -1;
+            result[2, 0] = matrix[0, 1] * matrix[1, 2] - matrix[0, 2] * matrix[1, 1] * 1;
+            result[2, 1] = matrix[0, 0] * matrix[1, 2] - matrix[0, 2] * matrix[1, 0] * -1;
+            result[2, 2] = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0] * 1;
+            return result;
+        }
+        //adjugate
+        public static Matrix3 Adjugate(Matrix3 matrix) {
+            float temp = matrix[1, 0];
+            matrix[1, 0] = matrix[0, 1];
+            matrix[0, 1] = temp;
+            temp = matrix[2, 0];
+            matrix[2, 0] = matrix[0, 2];
+            matrix[0, 2] = temp;
+            temp = matrix[2, 1];
+            matrix[2, 1] = matrix[1, 2];
+            matrix[1, 2] = temp;
+            return matrix;
+        }
+        //Inverse
+        public static Matrix3 Inverse(Matrix3 matrix) {
+            Matrix3 result = Adjugate(matrix);
+            result *= Determinant(matrix);
+            return result;
+        }
     }
 }

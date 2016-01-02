@@ -18,7 +18,22 @@ namespace Math_Implementation {
             if (I.Matrix[0] != 1 || I.Matrix[1] != 0 || I.Matrix[2] != 0 || I.Matrix[3] != 1) {
                 Error("Default Constructor Is Broken");
             }
-
+            Matrix3 a = new Matrix3(4, 9, 8,
+                                    3, 7, 2,
+                                    1, 3, 4);
+            Matrix3 ba = new Matrix3(4, 9, 8,
+                                    3, 7, 2,
+                                    1, 3, 4);
+            Matrix3 c = a * ba;
+            if (c[0,0] != 51 || c[0,1] != 123 || c[0,2] != 82 || c[1,0] != 35 || c[1,1] != 82 || c[1,2] != 46 || c[2,0] != 17 || c[2,1] != 42 || c[2,2] != 30) {
+                Error("Multiplication operand broken");
+            }
+            float det_A = Matrix3.Determinant(a);
+            if (det_A != 14) {
+                Error("Deterinant is wrong");
+                Console.WriteLine("Determinant value: " + det_A + " Expected: 14");
+            }
+            /*
             Matrix2 a = new Matrix2(1, 2, 
                                     3, 4);
             if (a.Matrix[0] != 1 && a.Matrix[1] != 2 || a.Matrix[2] != 3 || a.Matrix[3] != 4) {
@@ -78,7 +93,7 @@ namespace Math_Implementation {
             a = new Matrix2(4, 3, 3, 1);
             c = Matrix2.Inverse(a);
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
-            Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");
+            Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");*/
             Console.ReadLine();
         }
     }

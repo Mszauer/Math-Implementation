@@ -90,9 +90,9 @@ namespace Math_Implementation {
         }
         public void Normalize() {
             float length = Length(this);
-             X= this.X / length;
-             Y= this.Y / length;
-             Z= this.Z / length;
+             X /= length;
+             Y /= length;
+             Z /= length;
         }
         public static float AngleBetween(Vector3 vectorA,Vector3 vectorB) {
             return (float)Math.Acos(Dot(Normalize(vectorA), Normalize(vectorB)));

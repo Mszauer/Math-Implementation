@@ -58,15 +58,15 @@ namespace Math_Implementation {
             return new Vector3(vectorA.X / vectorB.X, vectorA.Y / vectorB.Y, vectorA.Z / vectorB.Z);
         }
         public static float Dot(Vector3 vectorA,Vector3 vectorB) {
-            float xComponent = vectorA.X + vectorB.X;
-            float yComponent = vectorA.Y + vectorB.Y;
-            float zComponent = vectorA.Z + vectorB.Z;
+            float xComponent = vectorA.X * vectorB.X;
+            float yComponent = vectorA.Y * vectorB.Y;
+            float zComponent = vectorA.Z * vectorB.Z;
             return xComponent + yComponent + zComponent;
         }
         public float Dot(Vector3 vector) {
-            float xComponent = this.X + vector.X;
-            float yComponent = this.Y + vector.Y;
-            float zComponent = this.Z + vector.Z;
+            float xComponent = this.X * vector.X;
+            float yComponent = this.Y * vector.Y;
+            float zComponent = this.Z * vector.Z;
             return xComponent + yComponent + zComponent;
         }
         public static float Length(Vector3 vectorA) {
@@ -75,8 +75,8 @@ namespace Math_Implementation {
         public float Length() {
             return (float)Math.Sqrt(Dot(this, this));
         }
-        public static float LengthSquared(Vector3 vectorA, Vector3 vectorB) {
-            return Dot(vectorA, vectorB);
+        public static float LengthSquared(Vector3 vectorA) {
+            return Dot(vectorA, vectorA);
         }
         public float LengthSquared() {
             return Dot(this, this);
@@ -101,7 +101,8 @@ namespace Math_Implementation {
             return (float)Math.Acos(Dot(Normalize(this), Normalize(vectorA)));
         }
         public static Vector3 Projection(Vector3 vectorA,Vector3 vectorB) {
-           return (vectorA * vectorB) / (Length(vectorB));
+            float projectionLength = (Dot(vectorA, vectorB) / (Length(vectorB)));
+            return Normalize(vectorB) * projectionLength;
         }
         public static Vector3 Perpendicular(Vector3 vectorA,Vector3 vectorB) {
             return (vectorB - Projection(vectorA, vectorB));

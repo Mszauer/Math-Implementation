@@ -84,8 +84,14 @@ namespace Math_Implementation {
         public static bool operator != (Matrix3 matrixA,Matrix3 matrixB) {
             return !(matrixA == matrixB);
         }
-        //end scalar operators
-
+        //Matrix Vector multiplication
+        public static Vector3 operator *(Matrix3 matrix,Vector3 vector) {
+            Vector3 result = new Vector3();
+            result[0] = (matrix[0, 0] * vector[0]) + (matrix[0, 1] * vector[1]) + (matrix[0, 2] * vector[2]);
+            result[1] = (matrix[1, 0] * vector[0]) + (matrix[1, 1] * vector[1]) + (matrix[1, 2] * vector[2]);
+            result[2] = (matrix[2, 0] * vector[0]) + (matrix[2, 1] * vector[1]) + (matrix[2, 2] * vector[2]);
+            return result;
+        }
         //Matrix multiplication
         public static Matrix3 operator *(Matrix3 matrixA,Matrix3 matrixB) {
             Matrix3 result = new Matrix3();
@@ -179,8 +185,36 @@ namespace Math_Implementation {
         }
         //takes in vector or 3 floats
         //which axis gets scaled/ Diagonal
-        public static Matrix3 Scale(Matrix3 matrix, Vector3 vector) {
-            return null;
+        public static Matrix3 Scale(float x, float y, float z) {
+            return new Matrix3(x, 0, 0,
+                               0, y, 0,
+                               0, 0, z);
+        }
+        public static Matrix3 Scale(Vector3 xyz) {
+            return new Matrix3(xyz[0], 0, 0,
+                               0, xyz[1], 0,
+                               0, 0, xyz[2]);
+        }
+        public static Matrix3 XRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180); //convert to rads
+            Matrix3 result = new Matrix3(1, 0, 0,
+                                         0, (float)Math.Cos(theta), -(float)Math.Sin(theta),
+                                         0, (float)Math.Sin(theta), (float)Math.Cos(theta));
+            return result;
+        }
+        public static Matrix3 YRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180);
+            Matrix3 result = new Matrix3((float)Math.Cos(theta), 0, (float)Math.Sin(theta),
+                                         0, 1, 0,
+                                         -(float)Math.Sin(theta), 0, (float)Math.Cos(theta));
+            return result;
+        }
+        public static Matrix3 ZRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180);
+            Matrix3 result = new Matrix3((float)Math.Cos(theta), -(float)Math.Sin(theta), 0,
+                                         (float)Math.Sin(theta), (float)Math.Cos(theta), 0,
+                                         0, 0, 1);
+            return result;
         }
     }
 }

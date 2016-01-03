@@ -183,8 +183,6 @@ namespace Math_Implementation {
             result *= 1.0f/determinant;
             return result;
         }
-        //takes in vector or 3 floats
-        //which axis gets scaled/ Diagonal
         public static Matrix3 Scale(float x, float y, float z) {
             return new Matrix3(x, 0, 0,
                                0, y, 0,

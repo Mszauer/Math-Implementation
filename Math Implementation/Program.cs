@@ -54,6 +54,13 @@ namespace Math_Implementation {
                     Console.WriteLine();
                 }
             }
+
+            Vector3 v3 = new Vector3(0, 0, 1);
+            Matrix3 xRotation = Matrix3.XRotation(90);
+            Vector3 newv3 = xRotation * v3;
+            if (newv3[0] != 0.0f || newv3[1] != -1.0f || newv3[2] != 0) {
+                Error("rotation did not work properly, X: " + newv3[0] + " Y: " + newv3[1] + " Z: " + newv3[2]);
+            }
             /*
             Matrix2 a = new Matrix2(1, 2, 
                                     3, 4);

@@ -31,7 +31,28 @@ namespace Math_Implementation {
             float det_A = Matrix3.Determinant(a);
             if (det_A != 14) {
                 Error("Deterinant is wrong");
-                Console.WriteLine("Determinant value: " + det_A + " Expected: 14");
+                Error("Determinant value: " + det_A + " Expected: 14");
+            }
+            Matrix3 i = Matrix3.Inverse(a);
+            Matrix3 test = new Matrix3(11.0f / 7.0f, -6.0f / 7.0f, -19.0f / 7.0f, 
+                                       -5.0f / 7.0f, 4.0f / 7.0f, 8.0f / 7.0f, 
+                                       1.0f / 7.0f, -3.0f / 14.0f, 1.0f / 14.0f);
+            if (i != test) {
+                Error("Inverse Matrix is wrong");
+                Console.WriteLine("Actual: ");
+                for (int z = 0; z < 3; z++) {
+                    for (int j = 0; j < 3; j++) {
+                        Console.Write(i[z, j].ToString() + "\t");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Expected: ");
+                for (int z = 0; z < 3; z++) {
+                    for (int j = 0; j < 3; j++) {
+                        Console.Write(test[z, j].ToString() + "\t");
+                    }
+                    Console.WriteLine();
+                }
             }
             /*
             Matrix2 a = new Matrix2(1, 2, 

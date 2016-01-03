@@ -60,13 +60,29 @@ namespace Math_Implementation {
             return result;
         }
         public static Matrix3 operator *(Matrix3 matrixA, float scale) {
-            Matrix3 result = null;
+            Matrix3 result = new Matrix3();
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     result[i, j] = matrixA[i, j] * scale;
                 }
             }
             return result;
+        }
+        private static bool Fequal(float a, float b) {
+            return Math.Abs(a - b) < 0.00001;
+        }
+        public static bool operator ==(Matrix3 matrixA, Matrix3 matrixB) {
+            for (int i = 0; i < 3; i++) {
+                for(int j = 0; j < 3; j++) {
+                    if (!Fequal(matrixA[i,j],matrixB[i, j])) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        public static bool operator != (Matrix3 matrixA,Matrix3 matrixB) {
+            return !(matrixA == matrixB);
         }
         //end scalar operators
 
@@ -136,36 +152,35 @@ namespace Math_Implementation {
         }
         //cofactor
         public static Matrix3 CoFactor(Matrix3 matrix) {
-            Matrix3 result = Minor(matrix);
-            result[0, 0] = matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1] * 1;
-            result[0, 1] = matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0] * -1;
-            result[0, 2] = matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0] * 1;
-            result[1, 0] = matrix[0, 1] * matrix[2, 2] - matrix[0, 2] * matrix[2, 1] * -1;
-            result[1, 1] = matrix[0, 0] * matrix[2, 2] - matrix[0, 2] * matrix[2, 0] * 1;
-            result[1, 2] = matrix[0, 0] * matrix[2, 1] - matrix[0, 1] * matrix[2, 0] * -1;
-            result[2, 0] = matrix[0, 1] * matrix[1, 2] - matrix[0, 2] * matrix[1, 1] * 1;
-            result[2, 1] = matrix[0, 0] * matrix[1, 2] - matrix[0, 2] * matrix[1, 0] * -1;
-            result[2, 2] = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0] * 1;
+            Matrix3 result = new Matrix3();
+            result[0, 0] = (matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1]) * 1;
+            result[0, 1] = (matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0]) * -1;
+            result[0, 2] = (matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0]) * 1;
+            result[1, 0] = (matrix[0, 1] * matrix[2, 2] - matrix[0, 2] * matrix[2, 1]) * -1;
+            result[1, 1] = (matrix[0, 0] * matrix[2, 2] - matrix[0, 2] * matrix[2, 0]) * 1;
+            result[1, 2] = (matrix[0, 0] * matrix[2, 1] - matrix[0, 1] * matrix[2, 0]) * -1;
+            result[2, 0] = (matrix[0, 1] * matrix[1, 2] - matrix[0, 2] * matrix[1, 1]) * 1;
+            result[2, 1] = (matrix[0, 0] * matrix[1, 2] - matrix[0, 2] * matrix[1, 0]) * -1;
+            result[2, 2] = (matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]) * 1;
             return result;
         }
         //adjugate
         public static Matrix3 Adjugate(Matrix3 matrix) {
-            float temp = matrix[1, 0];
-            matrix[1, 0] = matrix[0, 1];
-            matrix[0, 1] = temp;
-            temp = matrix[2, 0];
-            matrix[2, 0] = matrix[0, 2];
-            matrix[0, 2] = temp;
-            temp = matrix[2, 1];
-            matrix[2, 1] = matrix[1, 2];
-            matrix[1, 2] = temp;
-            return matrix;
+            Matrix3 result = new Matrix3();
+            result = Matrix3.Transpose(CoFactor(matrix));
+            return result;
         }
         //Inverse
         public static Matrix3 Inverse(Matrix3 matrix) {
             Matrix3 result = Adjugate(matrix);
-            result *= Determinant(matrix);
+            float determinant = Determinant(matrix);
+            result *= 1.0f/determinant;
             return result;
+        }
+        //takes in vector or 3 floats
+        //which axis gets scaled/ Diagonal
+        public static Matrix3 Scale(Matrix3 matrix, Vector3 vector) {
+            return null;
         }
     }
 }

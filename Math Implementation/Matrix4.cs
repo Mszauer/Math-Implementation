@@ -150,5 +150,39 @@ namespace Math_Implementation {
             result[3, 3] = matrixA[3, 3] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2]));
             return result;
         }
+        public static Matrix4 CoFactor(Matrix4 matrixA) {
+            Matrix4 result = Minor(matrixA);
+            result[0, 0] = result[0, 0] * 1;
+            result[0, 1] = result[0, 1] * -1;
+            result[0, 2] = result[0, 2] * 1;
+            result[0, 3] = result[0, 3] * -1;
+            result[1, 0] = result[1, 0] * 1;
+            result[1, 1] = result[1, 1] * -1;
+            result[1, 2] = result[1, 2] * 1;
+            result[1, 3] = result[1, 3] * -1;
+            result[2, 0] = result[2, 0] * 1;
+            result[2, 1] = result[2, 1] * -1;
+            result[2, 2] = result[2, 2] * 1;
+            result[2, 3] = result[2, 3] * -1;
+            result[3, 0] = result[3, 0] * 1;
+            result[3, 1] = result[3, 1] * -1;
+            result[3, 2] = result[3, 2] * 1;
+            result[3, 3] = result[3, 3] * -1;
+            return result;
+        }
+        public static Matrix4 Adjugate(Matrix4 matrixA) {
+            return Transpose(CoFactor(matrixA));
+        }
+        public static float Determinant(Matrix4 matrix) {
+            return + (matrix[1, 1] * (matrix[2, 2] * matrix[3, 3] - matrix[2, 3] * matrix[3, 2]))
+                   - (matrix[1, 2] * (matrix[2, 1] * matrix[3, 3] - matrix[2, 3] * matrix[3, 1]))
+                   + (matrix[1, 3] * (matrix[2, 1] * matrix[3, 2] - matrix[2, 2] * matrix[3, 1]));
+        }
+        public static Matrix4 Inverse(Matrix4 matrixA) {
+            Matrix4 result = Adjugate(matrixA);
+            float determinant = Determinant(matrixA);
+            result *= 1.0f / determinant;
+            return result;
+        }
     }
 }

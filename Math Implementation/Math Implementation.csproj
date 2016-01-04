@@ -46,6 +46,7 @@
     <Compile Include="Interpolation.cs" />
     <Compile Include="Matrix2.cs" />
     <Compile Include="Matrix3.cs" />
+    <Compile Include="Matrix4.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quaternion.cs" />

@@ -26,6 +26,7 @@ namespace Math_Implementation {
                                    0,0,0,1};
         }
         public Matrix4(params float[] values) {
+            Matrix = new float[16];
             if (values.Length != 16) {
                 Console.WriteLine("Invalid amount of matrices added: " + values.Length);
                 throw new System.Exception();
@@ -205,7 +206,7 @@ namespace Math_Implementation {
                                          0, 0, 1, 0);
             return result;
         }
-        public static Matrix4 setUpRotationMatrix(float angle, float u, float v, float w) {
+        public static Matrix4 AngleAxis(float angle, float u, float v, float w) {
             Matrix4 result = new Matrix4();
             float L = (u * u + v * v + w * w);
             float l = (float)Math.Sqrt(L);

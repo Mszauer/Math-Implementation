@@ -14,6 +14,7 @@ namespace Math_Implementation {
         }
 
         static void Main(string[] args) {
+            /*
             Matrix2 I = new  Matrix2();
             if (I.Matrix[0] != 1 || I.Matrix[1] != 0 || I.Matrix[2] != 0 || I.Matrix[3] != 1) {
                 Error("Default Constructor Is Broken");
@@ -122,6 +123,24 @@ namespace Math_Implementation {
             c = Matrix2.Inverse(a);
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");*/
+            Matrix4 a4 = new Matrix4 ( 9,8,9,8,
+                                       2,4,3,2,
+                                       0,1,3,3,
+                                       0,0,0,1);
+            Matrix4 ia4 = Matrix4.Inverse(a4);
+            if (ia4[0, 0] >= 0.177f || ia4[0, 1] >= -.295f || ia4[0, 2] >= -0.236f || ia4[0, 3] >= -0.118f ||
+                ia4[1, 0] >= -0.118f || ia4[1, 1] >= 0.530f || ia4[1, 2] >= -0.177f || ia4[1, 3] >= 0.412f ||
+                ia4[2, 0] >= 0.040f || ia4[2, 1] >= -0.177f || ia4[2, 2] >= 0.393f || ia4[2, 3] >= -1.138f ||
+                ia4[3, 0] != 0.0f || ia4[3, 1] != 0.0f || ia4[3, 2] != 0.0f || ia4[3,3] != 1.0f) {
+                Error("Inverse Matrix is wrong");
+                Console.WriteLine("Actual: ");
+                for (int z = 0; z < 4; z++) {
+                    for (int j = 0; j < 4; j++) {
+                        Console.Write(ia4[z, j].ToString() + "\t");
+                    }
+                    Console.WriteLine();
+                }
+            }
             Console.ReadLine();
         }
     }

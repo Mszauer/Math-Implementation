@@ -125,7 +125,7 @@ namespace Math_Implementation {
             Z *= -1;
         }
         public static bool operator ==(Vector4 vectorA, Vector4 vectorB) {
-            return vectorA.X == vectorB.X && vectorA.Y == vectorB.Y && vectorA.Z == vectorB.Z && ? true : false;
+            return vectorA.X == vectorB.X && vectorA.Y == vectorB.Y && vectorA.Z == vectorB.Z ? true : false;
         }
         public static bool operator !=(Vector4 vectorA, Vector4 vectorB) {
             return vectorA.X != vectorB.X && vectorA.Y != vectorB.Y && vectorA.Z != vectorB.Z ? true : false;

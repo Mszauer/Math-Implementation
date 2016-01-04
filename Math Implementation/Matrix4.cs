@@ -184,5 +184,56 @@ namespace Math_Implementation {
             result *= 1.0f / determinant;
             return result;
         }
+        public static Matrix4 XRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180); //convert to rads
+            Matrix4 result = new Matrix4(1, 0, 0, 0,
+                                         0, (float)Math.Cos(theta), -(float)Math.Sin(theta), 0,
+                                         0, (float)Math.Sin(theta), (float)Math.Cos(theta), 0);
+            return result;
+        }
+        public static Matrix4 YRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180);
+            Matrix4 result = new Matrix4((float)Math.Cos(theta), 0, (float)Math.Sin(theta), 0,
+                                         0, 1, 0, 0,
+                                         -(float)Math.Sin(theta), 0, (float)Math.Cos(theta), 0);
+            return result;
+        }
+        public static Matrix4 ZRotation(float theta) {
+            theta = theta * (float)(Math.PI / 180);
+            Matrix4 result = new Matrix4((float)Math.Cos(theta), -(float)Math.Sin(theta), 0, 0,
+                                         (float)Math.Sin(theta), (float)Math.Cos(theta), 0, 0,
+                                         0, 0, 1, 0);
+            return result;
+        }
+        public static Matrix4 setUpRotationMatrix(float angle, float u, float v, float w) {
+            Matrix4 result = new Matrix4();
+            float L = (u * u + v * v + w * w);
+            float l = (float)Math.Sqrt(L);
+            angle = angle * (float)(Math.PI / 180.0); //converting to radian value
+            float u2 = u * u;
+            float v2 = v * v;
+            float w2 = w * w;
+
+            result[0,0] = (u2 + (v2 + w2) * (float)Math.Cos(angle)) / L;
+            result[0,1] = (u * v * (1 - (float)Math.Cos(angle)) - w * l * (float)Math.Sin(angle)) / L;
+            result[0,2] = (u * w * (1 - (float)Math.Cos(angle)) + v * l * (float)Math.Sin(angle)) / L;
+            result[0,3] = 0.0f;
+
+            result[1,0] = (u * v * (1 - (float)Math.Cos(angle)) + w * l * (float)Math.Sin(angle)) / L;
+            result[1,1] = (v2 + (u2 + w2) * (float)Math.Cos(angle)) / L;
+            result[1,2] = (v * w * (1 - (float)Math.Cos(angle)) - u * l * (float)Math.Sin(angle)) / L;
+            result[1,3] = 0.0f;
+
+            result[2,0] = (u * w * (1 - (float)Math.Cos(angle)) - v * l * (float)Math.Sin(angle)) / L;
+            result[2,1] = (v * w * (1 - (float)Math.Cos(angle)) + u * l * (float)Math.Sin(angle)) / L;
+            result[2,2] = (w2 + (u2 + v2) * (float)Math.Cos(angle)) / L;
+            result[2,3] = 0.0f;
+
+            result[3,0] = 0.0f;
+            result[3,1] = 0.0f;
+            result[3,2] = 0.0f;
+            result[3,3] = 1.0f;
+            return result;
+        }
     }
 }

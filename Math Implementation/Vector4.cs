@@ -63,15 +63,15 @@ namespace Math_Implementation {
             return new Vector4(vectorA.X / vectorB.X, vectorA.Y / vectorB.Y, vectorA.Z / vectorB.Z, vectorA.W / vectorB.W);
         }
         public static float Dot(Vector4 vectorA,Vector4 vectorB) {
-            float x = vectorA.X + vectorB.X;
-            float y = vectorA.Y + vectorB.Y;
-            float z = vectorA.Z + vectorB.Z;
+            float x = vectorA.X * vectorB.X;
+            float y = vectorA.Y * vectorB.Y;
+            float z = vectorA.Z * vectorB.Z;
             return x + y + z;
         }
         public float Dot(Vector4 vectorA) {
-            float x = vectorA.X + X;
-            float y = vectorA.Y + Y;
-            float z = vectorA.Z + Z;
+            float x = vectorA.X * X;
+            float y = vectorA.Y * Y;
+            float z = vectorA.Z * Z;
             return x + y + z;
         }
         public static float Length(Vector4 vectorA) {
@@ -111,9 +111,9 @@ namespace Math_Implementation {
         }
         public static Vector4 Cross(Vector4 vectorA,Vector4 vectorB) {
             Vector4 result = new Vector4();
-            result.X = (vectorA.Y - vectorB.Z) - (vectorA.Z - vectorB.Y );
-            result.Y = (vectorA.Z - vectorB.X) - (vectorA.X - vectorB.Z );
-            result.Z = (vectorA.X - vectorB.Y) - (vectorA.Y - vectorB.X );
+            result.X = (vectorA.Y * vectorB.Z) - (vectorA.Z * vectorB.Y );
+            result.Y = (vectorA.Z * vectorB.X) - (vectorA.X * vectorB.Z );
+            result.Z = (vectorA.X * vectorB.Y) - (vectorA.Y * vectorB.X );
             return result;
         }
         public static Vector4 Negate(Vector4 vectorA) {

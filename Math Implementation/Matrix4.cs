@@ -175,9 +175,8 @@ namespace Math_Implementation {
             return Transpose(CoFactor(matrixA));
         }
         public static float Determinant(Matrix4 matrix) {
-            return + (matrix[1, 1] * (matrix[2, 2] * matrix[3, 3] - matrix[2, 3] * matrix[3, 2]))
-                   - (matrix[1, 2] * (matrix[2, 1] * matrix[3, 3] - matrix[2, 3] * matrix[3, 1]))
-                   + (matrix[1, 3] * (matrix[2, 1] * matrix[3, 2] - matrix[2, 2] * matrix[3, 1]));
+            Matrix4 cofactor = CoFactor(matrix);
+            return matrix[0, 0] * cofactor[0, 0] + matrix[0, 1] * cofactor[0, 1] + matrix[0, 2] * cofactor[0, 2] + matrix[0, 3] * cofactor[0, 3];
         }
         public static Matrix4 Inverse(Matrix4 matrixA) {
             Matrix4 result = Adjugate(matrixA);

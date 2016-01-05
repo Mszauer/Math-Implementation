@@ -252,5 +252,19 @@ namespace Math_Implementation {
             result[2, 2] = matrixA[2, 2] * vectorA[2];
             return result;
         }
+        public static Vector3 MultiplyVector(Matrix4 matrixA, Vector3 vectorA) {
+            Vector3 result = new Vector3();
+            result[0] = (matrixA[0, 0] * vectorA[0]) + (matrixA[0, 1] * vectorA[1]) + (matrixA[0, 2] * vectorA[2]) + (matrixA[0, 3] * 0.0f);
+            result[1] = (matrixA[1, 0] * vectorA[0]) + (matrixA[1, 1] * vectorA[1]) + (matrixA[1, 2] * vectorA[2]) + (matrixA[1, 3] * 0.0f);
+            result[2] = (matrixA[2, 0] * vectorA[0]) + (matrixA[2, 1] * vectorA[1]) + (matrixA[2, 2] * vectorA[2]) + (matrixA[2, 3] * 0.0f);
+            return result;
+        }
+        public static Vector3 MultiplyPoint(Matrix4 matrixA, Vector3 vectorA) {
+            Vector3 result = new Vector3();
+            result[0] = (matrixA[0, 0] * vectorA[0]) + (matrixA[0, 1] * vectorA[1]) + (matrixA[0, 2] * vectorA[2]) + (matrixA[0, 3] * 1.0f);
+            result[1] = (matrixA[1, 0] * vectorA[0]) + (matrixA[1, 1] * vectorA[1]) + (matrixA[1, 2] * vectorA[2]) + (matrixA[1, 3] * 1.0f);
+            result[2] = (matrixA[2, 0] * vectorA[0]) + (matrixA[2, 1] * vectorA[1]) + (matrixA[2, 2] * vectorA[2]) + (matrixA[2, 3] * 1.0f);
+            return result;
+        }
     }
 }

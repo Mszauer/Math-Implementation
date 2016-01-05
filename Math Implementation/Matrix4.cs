@@ -157,18 +157,21 @@ namespace Math_Implementation {
             result[0, 1] = result[0, 1] * -1;
             result[0, 2] = result[0, 2] * 1;
             result[0, 3] = result[0, 3] * -1;
-            result[1, 0] = result[1, 0] * 1;
-            result[1, 1] = result[1, 1] * -1;
-            result[1, 2] = result[1, 2] * 1;
-            result[1, 3] = result[1, 3] * -1;
+
+            result[1, 0] = result[1, 0] * -1;
+            result[1, 1] = result[1, 1] * 1;
+            result[1, 2] = result[1, 2] * -1;
+            result[1, 3] = result[1, 3] * 1;
+
             result[2, 0] = result[2, 0] * 1;
             result[2, 1] = result[2, 1] * -1;
             result[2, 2] = result[2, 2] * 1;
             result[2, 3] = result[2, 3] * -1;
-            result[3, 0] = result[3, 0] * 1;
-            result[3, 1] = result[3, 1] * -1;
-            result[3, 2] = result[3, 2] * 1;
-            result[3, 3] = result[3, 3] * -1;
+
+            result[3, 0] = result[3, 0] * -1;
+            result[3, 1] = result[3, 1] * 1;
+            result[3, 2] = result[3, 2] * -1;
+            result[3, 3] = result[3, 3] * 1;
             return result;
         }
         public static Matrix4 Adjugate(Matrix4 matrixA) {
@@ -176,7 +179,7 @@ namespace Math_Implementation {
         }
         public static float Determinant(Matrix4 matrix) {
             Matrix4 cofactor = CoFactor(matrix);
-            return matrix[0, 0] * cofactor[0, 0] + matrix[0, 1] * cofactor[0, 1] + matrix[0, 2] * cofactor[0, 2] + matrix[0, 3] * cofactor[0, 3];
+            return (matrix[0, 0] * cofactor[0, 0]) + (matrix[0, 1] * cofactor[0, 1]) + (matrix[0, 2] * cofactor[0, 2]) + (matrix[0, 3] * cofactor[0, 3]);
         }
         public static Matrix4 Inverse(Matrix4 matrixA) {
             Matrix4 result = Adjugate(matrixA);

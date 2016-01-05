@@ -238,5 +238,21 @@ namespace Math_Implementation {
             result[3,3] = 1.0f;
             return result;
         }
+        public static Matrix4 Translate(Matrix4 matrixA, Vector4 vectorA) {
+            Matrix4 result = matrixA;
+            result[0, 3] = matrixA[0, 3] + vectorA[0];
+            result[1, 3] = matrixA[1, 3] + vectorA[1];
+            result[2, 3] = matrixA[2, 3] + vectorA[2];
+            result[3, 3] = matrixA[3, 3] + vectorA[3];
+            return result;
+        }
+        public static Matrix4 Scale(Matrix4 matrixA,Vector4 vectorA) {
+            Matrix4 result = matrixA;
+            result[0, 0] = matrixA[0, 0] * vectorA[0];
+            result[1, 1] = matrixA[1, 1] * vectorA[1];
+            result[2, 2] = matrixA[2, 2] * vectorA[2];
+            result[3, 3] = matrixA[3, 3] * vectorA[3];
+            return result;
+        }
     }
 }

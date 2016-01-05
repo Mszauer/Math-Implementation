@@ -133,22 +133,22 @@ namespace Math_Implementation {
         }
         public static Matrix4 Minor(Matrix4 matrixA) {
             Matrix4 result = new Matrix4();
-            result[0, 0] = matrixA[0, 0] * Matrix3.Determinant(new Matrix3(matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
-            result[0, 1] = matrixA[0, 1] * Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
-            result[0, 2] = matrixA[0, 2] * Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
-            result[0, 3] = matrixA[0, 3] * Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
-            result[1, 0] = matrixA[1, 0] * Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
-            result[1, 1] = matrixA[1, 1] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
-            result[1, 2] = matrixA[1, 2] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
-            result[1, 3] = matrixA[1, 3] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
-            result[2, 0] = matrixA[2, 0] * Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
-            result[2, 1] = matrixA[2, 1] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
-            result[2, 2] = matrixA[2, 2] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
-            result[2, 3] = matrixA[2, 3] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
-            result[3, 0] = matrixA[3, 0] * Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3]));
-            result[3, 1] = matrixA[3, 1] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3]));
-            result[3, 2] = matrixA[3, 2] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3]));
-            result[3, 3] = matrixA[3, 3] * Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2]));
+            result[0, 0] = Matrix3.Determinant(new Matrix3(matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
+            result[0, 1] = Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
+            result[0, 2] = Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
+            result[0, 3] = Matrix3.Determinant(new Matrix3(matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
+            result[1, 0] = Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
+            result[1, 1] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
+            result[1, 2] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
+            result[1, 3] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
+            result[2, 0] = Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[3, 1], matrixA[3, 2], matrixA[3, 3]));
+            result[2, 1] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[3, 0], matrixA[3, 2], matrixA[3, 3]));
+            result[2, 2] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[3, 0], matrixA[3, 1], matrixA[3, 3]));
+            result[2, 3] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[3, 0], matrixA[3, 1], matrixA[3, 2]));
+            result[3, 0] = Matrix3.Determinant(new Matrix3(matrixA[0, 1], matrixA[0, 2], matrixA[0, 3], matrixA[1, 1], matrixA[1, 2], matrixA[1, 3], matrixA[2, 1], matrixA[2, 2], matrixA[2, 3]));
+            result[3, 1] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 2], matrixA[0, 3], matrixA[1, 0], matrixA[1, 2], matrixA[1, 3], matrixA[2, 0], matrixA[2, 2], matrixA[2, 3]));
+            result[3, 2] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 3], matrixA[1, 0], matrixA[1, 1], matrixA[1, 3], matrixA[2, 0], matrixA[2, 1], matrixA[2, 3]));
+            result[3, 3] = Matrix3.Determinant(new Matrix3(matrixA[0, 0], matrixA[0, 1], matrixA[0, 2], matrixA[1, 0], matrixA[1, 1], matrixA[1, 2], matrixA[2, 0], matrixA[2, 1], matrixA[2, 2]));
             return result;
         }
         public static Matrix4 CoFactor(Matrix4 matrixA) {

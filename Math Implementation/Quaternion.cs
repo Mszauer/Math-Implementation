@@ -6,11 +6,42 @@ namespace Math_Implementation {
         public float Y = 0.0f;
         public float Z = 0.0f;
         public float W = 0.0f;
+        public float this[int i] {
+            get {
+                if (i == 0) {
+                    return X;
+                }
+                else if (i == 1) {
+                    return Y;
+                }
+                else if (i == 2) {
+                    return Z;
+                }
+                else if (i == 3) {
+                    return W;
+                }
+                return 0;
+            }
+            set {
+                if (i == 0) {
+                    X = value;
+                }
+                else if (i == 1) {
+                    Y = value;
+                }
+                else if (i == 2) {
+                    Z = value;
+                }
+                else if (i == 3) {
+                    W = value;
+                }
+            }
+        }
         public Quaternion(float x,float y,float z, float w) {
             X = x;
             Y = y;
             Z = z;
-            W = W;
+            W = w;
         }
         public Quaternion() {
             X = Y = Z = W = 0.0f;

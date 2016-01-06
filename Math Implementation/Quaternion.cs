@@ -203,7 +203,7 @@ namespace Math_Implementation {
             result.Z = (cosY * sinZ * cosX) - (sinY * cosZ * sinX);
             return result;
         }
-        public static Quaternion ToEuler(Quaternion q) {
+        public static Vector3 ToEuler(Quaternion q) {
             float x, y, z = 0.0f;
             q = Normalize(q);
             float test = (q.X * q.Y) + (q.Z * q.W);
@@ -211,13 +211,13 @@ namespace Math_Implementation {
                 x = 0.0f;
                 y = 2.0f * (float)Math.Atan2(q.X,q.W);
                 z = (float)Math.PI / 2.0f;
-                return new Quaternion(x, y, z,1.0f);
+                return new Vector3(x, y, z);
             }
             else if (test < -0.499) { //south singluarity
                 x = 0.0f;
                 y = -2.0f * (float)Math.Atan2(q.X, q.W);
                 z = -(float)Math.PI / 2.0f;
-                return new Quaternion(x, y, z, 1.0f);
+                return new Vector3(x, y, z);
             }
             float xSq = q.X * q.X;
             float ySq = q.Y * q.Y;
@@ -225,9 +225,9 @@ namespace Math_Implementation {
             x = (float)Math.Atan2((2.0f * q.X * q.W - 2.0f * q.Y * q.Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
             y = (float)Math.Atan2((2.0f * q.Y * q.W - 2.0f * q.X * q.Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
             z = (float)Math.Asin(2.0f * test);
-            return new Quaternion(x, y, z, 1.0f);
+            return new Vector3(x, y, z);
         }
-        public Quaternion ToEuler() {
+        public Vector3 ToEuler() {
             float x, y, z = 0.0f;
             Normalize();
             float test = (X * Y) + (Z * W);
@@ -235,13 +235,13 @@ namespace Math_Implementation {
                 x = 0.0f;
                 y = 2.0f * (float)Math.Atan2(X, W);
                 z = (float)Math.PI / 2.0f;
-                return new Quaternion(x, y, z, 1.0f);
+                return new Vector3(x, y, z);
             }
             else if (test < -0.499) { //south singluarity
                 x = 0.0f;
                 y = -2.0f * (float)Math.Atan2(X, W);
                 z = -(float)Math.PI / 2.0f;
-                return new Quaternion(x, y, z, 1.0f);
+                return new Vector3(x, y, z);
             }
             float xSq = X * X;
             float ySq = Y * Y;
@@ -249,7 +249,7 @@ namespace Math_Implementation {
             x = (float)Math.Atan2((2.0f * X * W - 2.0f * Y * Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
             y = (float)Math.Atan2((2.0f * Y * W - 2.0f * X * Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
             z = (float)Math.Asin(2.0f * test);
-            return new Quaternion(x, y, z, 1.0f);
+            return new Vector3(x, y, z);
 
         }
         private static bool Fequal(float a, float b) {

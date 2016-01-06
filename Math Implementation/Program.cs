@@ -167,7 +167,7 @@ namespace Math_Implementation {
                 Error("From Euler result not correct");
             }
             Quaternion q3 = Quaternion.AngleAxis(90, 0, 1, 0);
-            if (q3.ToEuler().Y != 90) {
+            if (Math.Abs(90.0f - q3.ToEuler().Y) < 0.000001f) {
                 Error("expecting q3 y to be 90, not : " + q3.ToEuler().Y);
             }
             Console.ReadLine();

@@ -167,6 +167,19 @@ namespace Math_Implementation {
             result.W = q.W;
             return result;
         }
+        public Quaternion Inverse() {
+            X = -X;
+            Y = -Y;
+            Z = -Z;
+            return new Quaternion(X, Y, Z, W);
+        }
+        public static float Dot(Quaternion a, Quaternion b) {
+            return a.X * b.X + a.Y * b.Y + a.Z * b.Z + a.W * b.W;
+        }
+        public float Dot(Quaternion a) {
+            return X * a.X + Y * a.Y + Z * a.Z + W * a.W;
+        }
+
         public static Quaternion operator *(Quaternion A, Quaternion B) {
             Quaternion result = new Quaternion();
             result.X = A.W * B.X + A.X * B.W + A.Y * B.Z - A.Z * B.Y;
@@ -174,6 +187,11 @@ namespace Math_Implementation {
             result.Z = A.W * B.Z + A.X * B.Y - A.Y * B.X + A.Z * B.W;
             result.W = A.W * B.W - A.X * B.X - A.Y * B.Y - A.Z * B.Z;
             return result;
+        }
+        public static Vector3 operator *(Quaternion q, Vector3 v) {
+            Vector3 t = Vector3.Cross(new Vector3(q.X, q.Y, q.Z), v) * 2.0f;
+            Vector3 _v = v + (t * q.W) + Vector3.Cross(new Vector3(q.X, q.Y, q.Z), t);
+            return _v;
         }
         public static Quaternion Multiply(Quaternion A, Quaternion B) {
             Quaternion result = new Quaternion();
@@ -208,47 +226,47 @@ namespace Math_Implementation {
             q = Normalize(q);
             float test = (q.X * q.Y) + (q.Z * q.W);
             if (test > 0.499) {//north singularity
-                x = 0.0f;
-                y = 2.0f * (float)Math.Atan2(q.X,q.W);
-                z = (float)Math.PI / 2.0f;
+                x = 0.0f * 57.2958f;
+                y = 2.0f * (float)Math.Atan2(q.X,q.W) * 57.2958f;
+                z = (float)Math.PI / 2.0f * 57.2958f;
                 return new Vector3(x, y, z);
             }
             else if (test < -0.499) { //south singluarity
-                x = 0.0f;
-                y = -2.0f * (float)Math.Atan2(q.X, q.W);
-                z = -(float)Math.PI / 2.0f;
+                x = 0.0f * 57.2958f;
+                y = -2.0f * (float)Math.Atan2(q.X, q.W) * 57.2958f;
+                z = -(float)Math.PI / 2.0f * 57.2958f;
                 return new Vector3(x, y, z);
             }
             float xSq = q.X * q.X;
             float ySq = q.Y * q.Y;
             float zSq = q.Z * q.Z;
-            x = (float)Math.Atan2((2.0f * q.X * q.W - 2.0f * q.Y * q.Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
-            y = (float)Math.Atan2((2.0f * q.Y * q.W - 2.0f * q.X * q.Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
-            z = (float)Math.Asin(2.0f * test);
+            x = (float)Math.Atan2((2.0f * q.X * q.W - 2.0f * q.Y * q.Z), (1.0f - (2.0f * xSq) - (2.0f * zSq))) * 57.2958f;
+            y = (float)Math.Atan2((2.0f * q.Y * q.W - 2.0f * q.X * q.Z), (1.0f - (2.0f * ySq) - (2.0f * zSq))) * 57.2958f;
+            z = (float)Math.Asin(2.0f * test) * 57.2958f;
             return new Vector3(x, y, z);
         }
         public Vector3 ToEuler() {
             float x, y, z = 0.0f;
             Normalize();
             float test = (X * Y) + (Z * W);
-            if (test > 0.499) {//north singularity
-                x = 0.0f;
-                y = 2.0f * (float)Math.Atan2(X, W);
-                z = (float)Math.PI / 2.0f;
+            if (test > 0.499f) {//north singularity
+                x = 0.0f * 57.2958f;
+                y = 2.0f * (float)Math.Atan2(X, W) * 57.2958f;
+                z = (float)Math.PI / 2.0f * 57.2958f;
                 return new Vector3(x, y, z);
             }
-            else if (test < -0.499) { //south singluarity
-                x = 0.0f;
-                y = -2.0f * (float)Math.Atan2(X, W);
-                z = -(float)Math.PI / 2.0f;
+            else if (test < -0.499f) { //south singluarity
+                x = 0.0f * 57.2958f;
+                y = -2.0f * (float)Math.Atan2(X, W) * 57.2958f;
+                z = -(float)Math.PI / 2.0f * 57.2958f;
                 return new Vector3(x, y, z);
             }
             float xSq = X * X;
             float ySq = Y * Y;
             float zSq = Z * Z;
-            x = (float)Math.Atan2((2.0f * X * W - 2.0f * Y * Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
-            y = (float)Math.Atan2((2.0f * Y * W - 2.0f * X * Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
-            z = (float)Math.Asin(2.0f * test);
+            x = (float)Math.Atan2((2.0f * X * W - 2.0f * Y * Z), (1.0f - (2.0f * xSq) - (2.0f * zSq))) * 57.2958f;
+            y = (float)Math.Atan2((2.0f * Y * W - 2.0f * X * Z), (1.0f - (2.0f * ySq) - (2.0f * zSq))) * 57.2958f;
+            z = (float)Math.Asin(2.0f * test) * 57.2958f;
             return new Vector3(x, y, z);
 
         }

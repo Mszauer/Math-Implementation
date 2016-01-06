@@ -170,7 +170,13 @@ namespace Math_Implementation {
             if (Math.Abs(90.0f - q3.ToEuler().Y) < 0.000001f) {
                 Error("expecting q3 y to be 90, not : " + q3.ToEuler().Y);
             }
-            Console.ReadLine();
+
+        Vector3 v1 = Matrix4.MultiplyVector(Matrix4.AngleAxis(30f, 0.5f, 0.5f, 0.0f),new Vector3(1.0f, 2.0f, 3.0f));
+        Vector3 v2 = Quaternion.AngleAxis(30f, 0.5f, 0.5f, 0.0f) * new Vector3(1.0f, 2.0f, 3.0f);
+        if (v1 != v2) {
+            Error("v1 != v2");
+        }
+    Console.ReadLine();
         }
     }
 }

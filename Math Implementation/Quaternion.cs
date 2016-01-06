@@ -62,6 +62,13 @@ namespace Math_Implementation {
             result.W /= qLength;
             return result;
         }
+        public void Normalize() {
+            float qLength = Length(this);
+            X /= qLength;
+            Y /= qLength;
+            Z /= qLength;
+            W /= qLength;
+        }
         public static Quaternion AngleAxis(float angle, Vector3 axis) {
             angle = angle * (float)(Math.PI / 180.0f);
             Quaternion result = new Quaternion();
@@ -175,6 +182,75 @@ namespace Math_Implementation {
             result.Z = A.W * B.Z + A.X * B.Y - A.Y * B.X + A.Z * B.W;
             result.W = A.W * B.W - A.X * B.X - A.Y * B.Y - A.Z * B.Z;
             return result;
+        }
+        public static Quaternion FromEuler(float x,float y, float z) {
+            float radConversion = (float)Math.PI / 180.0f;
+            x *= radConversion;
+            y *= radConversion;
+            z *= radConversion;
+            Quaternion result = new Quaternion();
+            float cosX = (float)Math.Cos(x/2);
+            float sinX = (float)Math.Sin(x/2);
+            float cosY = (float)Math.Cos(y/2);
+            float sinY = (float)Math.Sin(y/2);
+            float cosZ = (float)Math.Cos(z/2);
+            float sinZ = (float)Math.Sin(z/2);
+            float cosYZ = cosY * cosZ;
+            float sinYZ = sinY * sinZ;
+            result.W = (cosYZ * sinX) + (sinYZ * sinX);
+            result.X = (cosYZ * sinX) + (sinYZ * cosX);
+            result.Y = (sinY * cosZ * cosX) + (cosY * sinZ * sinX);
+            result.Z = (cosY * sinZ * cosX) - (sinY * cosZ * sinX);
+            return result;
+        }
+        public static Quaternion ToEuler(Quaternion q) {
+            float x, y, z = 0.0f;
+            q = Normalize(q);
+            float test = (q.X * q.Y) + (q.Z * q.W);
+            if (test > 0.499) {//north singularity
+                x = 0.0f;
+                y = 2.0f * (float)Math.Atan2(q.X,q.W);
+                z = (float)Math.PI / 2.0f;
+                return new Quaternion(x, y, z,1.0f);
+            }
+            else if (test < -0.499) { //south singluarity
+                x = 0.0f;
+                y = -2.0f * (float)Math.Atan2(q.X, q.W);
+                z = -(float)Math.PI / 2.0f;
+                return new Quaternion(x, y, z, 1.0f);
+            }
+            float xSq = q.X * q.X;
+            float ySq = q.Y * q.Y;
+            float zSq = q.Z * q.Z;
+            x = (float)Math.Atan2((2.0f * q.X * q.W - 2.0f * q.Y * q.Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
+            y = (float)Math.Atan2((2.0f * q.Y * q.W - 2.0f * q.X * q.Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
+            z = (float)Math.Asin(2.0f * test);
+            return new Quaternion(x, y, z, 1.0f);
+        }
+        public Quaternion ToEuler() {
+            float x, y, z = 0.0f;
+            Normalize();
+            float test = (X * Y) + (Z * W);
+            if (test > 0.499) {//north singularity
+                x = 0.0f;
+                y = 2.0f * (float)Math.Atan2(X, W);
+                z = (float)Math.PI / 2.0f;
+                return new Quaternion(x, y, z, 1.0f);
+            }
+            else if (test < -0.499) { //south singluarity
+                x = 0.0f;
+                y = -2.0f * (float)Math.Atan2(X, W);
+                z = -(float)Math.PI / 2.0f;
+                return new Quaternion(x, y, z, 1.0f);
+            }
+            float xSq = X * X;
+            float ySq = Y * Y;
+            float zSq = Z * Z;
+            x = (float)Math.Atan2((2.0f * X * W - 2.0f * Y * Z), (1.0f - (2.0f * xSq) - (2.0f * zSq)));
+            y = (float)Math.Atan2((2.0f * Y * W - 2.0f * X * Z), (1.0f - (2.0f * ySq) - (2.0f * zSq)));
+            z = (float)Math.Asin(2.0f * test);
+            return new Quaternion(x, y, z, 1.0f);
+
         }
         private static bool Fequal(float a, float b) {
             return Math.Abs(a - b) < 0.00001;

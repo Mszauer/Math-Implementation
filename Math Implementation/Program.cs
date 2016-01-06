@@ -161,6 +161,15 @@ namespace Math_Implementation {
                     Console.WriteLine();
                 }
             }
+            Quaternion q1 = Quaternion.FromEuler(90, 0, 0);
+            Quaternion q2 = Quaternion.AngleAxis(90, 1, 0, 0);
+            if (q1 != q2) {
+                Error("From Euler result not correct");
+            }
+            Quaternion q3 = Quaternion.AngleAxis(90, 0, 1, 0);
+            if (q3.ToEuler().Y != 90) {
+                Error("expecting q3 y to be 90, not : " + q3.ToEuler().Y);
+            }
             Console.ReadLine();
         }
     }

@@ -123,7 +123,7 @@ namespace Math_Implementation {
             c = Matrix2.Inverse(a);
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");*/
-            Matrix4 a4 = new Matrix4 ( 9,8,9,8,
+            /*Matrix4 a4 = new Matrix4 ( 9,8,9,8,
                                        2,4,3,2,
                                        0,1,3,3,
                                        0,0,0,1);
@@ -140,6 +140,12 @@ namespace Math_Implementation {
                     }
                     Console.WriteLine();
                 }
+            }
+            */
+            Quaternion q = Quaternion.AngleAxis(90.0f, 1.0f, 0.0f, 0.0f);
+            Matrix4 m = Matrix4.AngleAxis(90.0f, 1.0f, 0.0f, 0.0f);
+            if (q.ToMatrix() != m) {
+                Error("Quaternion did not convert to correct matrix");
             }
             Console.ReadLine();
         }

@@ -61,7 +61,7 @@ namespace Math_Implementation {
             result.W /= qLength;
             return result;
         }
-        public static Quaternion FromAngleAxis(Vector3 axis, float angle) {
+        public static Quaternion AngleAxis(float angle, Vector3 axis) {
             angle = angle * (float)(Math.PI / 180);
             Quaternion result = new Quaternion();
             float sin = (float)Math.Sin(angle);
@@ -72,8 +72,20 @@ namespace Math_Implementation {
             result.Z = axis.Z * sin;
             return result;
         }
-        public static Matrix3 ToMatrix(Quaternion q) {
-            Matrix3 result = new Matrix3();
+        public static Quaternion AngleAxis(float angle,float x,float y, float z) {
+            angle = angle * (float)(Math.PI / 180);
+            Vector3 axis = new Vector3(x, y, z);
+            Quaternion result = new Quaternion();
+            float sin = (float)Math.Sin(angle);
+            axis = Vector3.Normalize(axis);
+            result.W = (float)Math.Cos(angle);
+            result.X = axis.X * sin;
+            result.Y = axis.Y * sin;
+            result.Z = axis.Z * sin;
+            return result;
+        }
+        public static Matrix4 ToMatrix(Quaternion q) {
+            Matrix4 result = new Matrix4();
             float xSq = q.X * q.X;
             float ySq = q.Y * q.Y;
             float zSq = q.Z * q.Z;
@@ -90,12 +102,52 @@ namespace Math_Implementation {
             result[0, 0] = wSq + xSq - ySq - zSq;
             result[0, 1] = xy - wz;
             result[0, 2] = xz + wy;
+            result[0, 3] = 0.0f;
             result[1, 0] = xy + wz;
             result[1, 1] = wSq - xSq + ySq - zSq;
             result[1, 2] = yz - wx;
+            result[1, 3] = 0.0f;
             result[2, 0] = xz - wy;
             result[2, 1] = yz + wx;
             result[2, 2] = wSq - xSq - ySq + zSq;
+            result[2, 3] = 0.0f;
+            result[3, 0] = 0.0f;
+            result[3, 1] = 0.0f;
+            result[3, 2] = 0.0f;
+            result[3, 3] = 1.0f;
+            return result;
+        }
+        public Matrix4 ToMatrix() {
+            Matrix4 result = new Matrix4();
+            float xSq = X * X;
+            float ySq = Y * Y;
+            float zSq = Z * Z;
+            float wSq = W * W;
+            float twoX = 2.0f *X;
+            float twoY = 2.0f *Y;
+            float twoW = 2.0f *W;
+            float xy = twoX * Y;
+            float xz = twoX * Z;
+            float yz = twoY * Z;
+            float wx = twoW * X;
+            float wy = twoW * Y;
+            float wz = twoW * Z;
+            result[0, 0] = wSq + xSq - ySq - zSq;
+            result[0, 1] = xy - wz;
+            result[0, 2] = xz + wy;
+            result[0, 3] = 0.0f;
+            result[1, 0] = xy + wz;
+            result[1, 1] = wSq - xSq + ySq - zSq;
+            result[1, 2] = yz - wx;
+            result[1, 3] = 0.0f;
+            result[2, 0] = xz - wy;
+            result[2, 1] = yz + wx;
+            result[2, 2] = wSq - xSq - ySq + zSq;
+            result[2, 3] = 0.0f;
+            result[3, 0] = 0.0f;
+            result[3, 1] = 0.0f;
+            result[3, 2] = 0.0f;
+            result[3, 3] = 1.0f;
             return result;
         }
         public static Quaternion Conjugate(Quaternion q) {
@@ -120,6 +172,12 @@ namespace Math_Implementation {
             result.Z = A.W * B.Z + A.X * B.Y - A.Y * B.X + A.Z * B.W;
             result.W = A.W * B.W - A.X * B.X - A.Y * B.Y - A.Z * B.Z;
             return result;
+        }
+        public static bool operator ==(Quaternion a, Quaternion b) {
+            return (a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.W == b.W);
+        }
+        public static bool operator != (Quaternion a, Quaternion b) {
+            return (a.X != b.X && a.Y != b.Y && a.Z != b.Z && a.W != b.W);
         }
     }
 }

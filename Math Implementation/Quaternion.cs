@@ -5,7 +5,7 @@ namespace Math_Implementation {
         public float X = 0.0f;
         public float Y = 0.0f;
         public float Z = 0.0f;
-        public float W = 0.0f;
+        public float W = 1.0f;
         public float this[int i] {
             get {
                 if (i == 0) {
@@ -44,7 +44,8 @@ namespace Math_Implementation {
             W = w;
         }
         public Quaternion() {
-            X = Y = Z = W = 0.0f;
+            X = Y = Z = 0.0f;
+            W = 1.0f;
         }
         public static float Length(Quaternion q) {
             return (float)Math.Sqrt(q.X * q.X + q.Y * q.Y + q.Z * q.Z + q.W * q.W);
@@ -62,7 +63,7 @@ namespace Math_Implementation {
             return result;
         }
         public static Quaternion AngleAxis(float angle, Vector3 axis) {
-            angle = angle * (float)(Math.PI / 180);
+            angle = angle * (float)(Math.PI / 180.0f);
             Quaternion result = new Quaternion();
             float sin = (float)Math.Sin(angle);
             axis = Vector3.Normalize(axis);
@@ -73,7 +74,8 @@ namespace Math_Implementation {
             return result;
         }
         public static Quaternion AngleAxis(float angle,float x,float y, float z) {
-            angle = angle * (float)(Math.PI / 180);
+            angle = angle * (float)(Math.PI / 180.0f);
+            angle /= 2.0f;
             Vector3 axis = new Vector3(x, y, z);
             Quaternion result = new Quaternion();
             float sin = (float)Math.Sin(angle);
@@ -150,11 +152,12 @@ namespace Math_Implementation {
             result[3, 3] = 1.0f;
             return result;
         }
-        public static Quaternion Conjugate(Quaternion q) {
+        public static Quaternion Inverse(Quaternion q) {
             Quaternion result = new Quaternion();
             result.X = -q.X;
             result.Y = -q.Y;
             result.Z = -q.Z;
+            result.W = q.W;
             return result;
         }
         public static Quaternion operator *(Quaternion A, Quaternion B) {
@@ -173,11 +176,14 @@ namespace Math_Implementation {
             result.W = A.W * B.W - A.X * B.X - A.Y * B.Y - A.Z * B.Z;
             return result;
         }
+        private static bool Fequal(float a, float b) {
+            return Math.Abs(a - b) < 0.00001;
+        }
         public static bool operator ==(Quaternion a, Quaternion b) {
-            return (a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.W == b.W);
+            return (Fequal(a.X, b.X) && Fequal(a.Y, b.Y) && Fequal(a.Z, b.Z) && Fequal(a.W, b.W));
         }
         public static bool operator != (Quaternion a, Quaternion b) {
-            return (a.X != b.X && a.Y != b.Y && a.Z != b.Z && a.W != b.W);
+            return !(a==b);
         }
     }
 }

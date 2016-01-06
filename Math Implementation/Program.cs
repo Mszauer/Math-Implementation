@@ -146,6 +146,20 @@ namespace Math_Implementation {
             Matrix4 m = Matrix4.AngleAxis(90.0f, 1.0f, 0.0f, 0.0f);
             if (q.ToMatrix() != m) {
                 Error("Quaternion did not convert to correct matrix");
+                Console.WriteLine("Actual: ");
+                for (int z = 0; z < 4; z++) {
+                    for (int j = 0; j < 4; j++) {
+                        Console.Write(q.ToMatrix()[z, j].ToString() + "\t");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Expected: ");
+                for (int z = 0; z < 4; z++) {
+                    for (int j = 0; j < 4; j++) {
+                        Console.Write(m[z, j].ToString() + "\t");
+                    }
+                    Console.WriteLine();
+                }
             }
             Console.ReadLine();
         }

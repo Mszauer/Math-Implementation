@@ -105,17 +105,17 @@ namespace Math_Implementation {
             return result;
         }
         public void Multiply(Matrix2 matrix) {
-            this[0, 0] = (this[0, 0] * matrix[0, 0]) + (this[1, 0] * matrix[0, 1]);
-            this[0, 1] = (this[0, 0] * matrix[1, 0]) + (this[1, 0] * matrix[1, 1]);
-            this[1, 0] = (this[0, 1] * matrix[0, 0]) + (this[1, 1] * matrix[0, 1]);
-            this[1, 1] = (this[0, 1] * matrix[1, 0]) + (this[1, 1] * matrix[1, 1]);
+            this[0, 0] = (this[0, 0] * matrix[0, 0]) + (this[0, 1] * matrix[1, 0]);
+            this[0, 1] = (this[0, 0] * matrix[0, 1]) + (this[0, 1] * matrix[1, 1]);
+            this[1, 0] = (this[1, 0] * matrix[0, 0]) + (this[1, 1] * matrix[0, 1]);
+            this[1, 1] = (this[1, 0] * matrix[0, 1]) + (this[1, 1] * matrix[1, 1]);
         }
         public static Matrix2 operator *(Matrix2 matrix1, Matrix2 matrix2) {
             Matrix2 result = new Matrix2();
-            result[0, 0] = (matrix1[0, 0] * matrix2[0, 0]) + (matrix1[1, 0] * matrix2[0, 1]);
-            result[0, 1] = (matrix1[0, 0] * matrix2[1, 0]) + (matrix1[1, 0] * matrix2[1, 1]);
-            result[1, 0] = (matrix1[0, 1] * matrix2[0, 0]) + (matrix1[1, 1] * matrix2[0, 1]);
-            result[1, 1] = (matrix1[0, 1] * matrix2[1, 0]) + (matrix1[1, 1] * matrix2[1, 1]);
+            result[0, 0] = (matrix1[0, 0] * matrix2[0, 0]) + (matrix1[0, 1] * matrix2[1, 0]);
+            result[0, 1] = (matrix1[0, 0] * matrix2[0, 1]) + (matrix1[0, 1] * matrix2[1, 1]);
+            result[1, 0] = (matrix1[1, 0] * matrix2[0, 0]) + (matrix1[1, 1] * matrix2[0, 1]);
+            result[1, 1] = (matrix1[1, 0] * matrix2[0, 1]) + (matrix1[1, 1] * matrix2[1, 1]);
             return result;
         }
         public static Matrix2 ScalarMultiply(Matrix2 matrix, float scale) {

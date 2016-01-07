@@ -15,6 +15,7 @@ namespace RayCaster {
             TextureManager.Instance.Initialize(Window);
             InputManager.Instance.Initialize(Window);
             SoundManager.Instance.Initialize(Window);
+            Game.Instance.Initialize();
         }
         public static void Update(object sender, FrameEventArgs e) {
             float dTime = (float)e.Time;
@@ -22,10 +23,12 @@ namespace RayCaster {
                 dTime = 1 / 60.0f;
             }
             InputManager.Instance.Update();
+            Game.Instance.Update(dTime);
         }
         public static void Render(object sender, FrameEventArgs e) {
             GraphicsManager.Instance.ClearScreen(System.Drawing.Color.CadetBlue);
             int FPS = (int)(1 / e.Time);
+            Game.Instance.Render();
             GraphicsManager.Instance.DrawString("FPS", new Point((Window.Width / 4) + 5, 6), Color.Black);
             GraphicsManager.Instance.DrawString("FPS", new Point((Window.Width / 4) + 4, 5), Color.White);
             GraphicsManager.Instance.DrawString(System.Convert.ToString(FPS), new Point((Window.Width / 4) + 10, 20), Color.Black);
@@ -33,6 +36,7 @@ namespace RayCaster {
             GraphicsManager.Instance.SwapBuffers();
         }
         public static void Shutdown(object sender, EventArgs e) {
+            Game.Instance.Shutdown();
             SoundManager.Instance.Shutdown();
             InputManager.Instance.Shutdown();
             TextureManager.Instance.Shutdown();
@@ -42,7 +46,7 @@ namespace RayCaster {
         static void Main(string[] args) {
             Window = new OpenTK.GameWindow();
             Window.Title = "RayCaster";
-            Window.ClientSize = new System.Drawing.Size(512 / 2, 448 / 2);
+            Window.ClientSize = new System.Drawing.Size(800, 600);
             Window.Load += new EventHandler<EventArgs>(Initialize);
             Window.UpdateFrame += new EventHandler<FrameEventArgs>(Update);
             Window.RenderFrame += new EventHandler<FrameEventArgs>(Render);

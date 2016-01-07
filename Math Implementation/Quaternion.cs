@@ -168,10 +168,10 @@ namespace Math_Implementation {
             return result;
         }
         public Quaternion Inverse() {
-            X = -X;
-            Y = -Y;
-            Z = -Z;
-            return new Quaternion(X, Y, Z, W);
+            float x = -X;
+            float y = -Y;
+            float z = -Z;
+            return new Quaternion(x, y, z, W);
         }
         public static float Dot(Quaternion a, Quaternion b) {
             return a.X * b.X + a.Y * b.Y + a.Z * b.Z + a.W * b.W;

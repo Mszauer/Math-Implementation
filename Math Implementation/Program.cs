@@ -14,7 +14,7 @@ namespace Math_Implementation {
         }
 
         static void Main(string[] args) {
-            /*
+            
             Matrix2 I = new  Matrix2();
             if (I.Matrix[0] != 1 || I.Matrix[1] != 0 || I.Matrix[2] != 0 || I.Matrix[3] != 1) {
                 Error("Default Constructor Is Broken");
@@ -62,41 +62,41 @@ namespace Math_Implementation {
             if (newv3[0] != 0.0f || newv3[1] != -1.0f || newv3[2] != 0) {
                 Error("rotation did not work properly, X: " + newv3[0] + " Y: " + newv3[1] + " Z: " + newv3[2]);
             }
-            /*
-            Matrix2 a = new Matrix2(1, 2, 
+            
+            Matrix2 f = new Matrix2(1, 2, 
                                     3, 4);
-            if (a.Matrix[0] != 1 && a.Matrix[1] != 2 || a.Matrix[2] != 3 || a.Matrix[3] != 4) {
+            if (f.Matrix[0] != 1 && f.Matrix[1] != 2 || f.Matrix[2] != 3 || f.Matrix[3] != 4) {
                 Error("Params Constructor Is Broken");
             }
-            if (a[0] != 1 && a[1] != 2 || a[2] != 3 || a[3] != 4) {
+            if (f[0] != 1 && f[1] != 2 || f[2] != 3 || f[3] != 4) {
                 Error("Single Dimensional accessor Is Broken");
             }
-            if (a[0, 0] != 1 || a[1, 1] != 4 || a[0, 1] != 2 || a[1, 0] != 3) {
+            if (f[0, 0] != 1 || f[1, 1] != 4 || f[0, 1] != 2 || f[1, 0] != 3) {
                 Error("Multidimensional accessor broken");
             }
-            if (a.GetValue(0, 0) != 1 || a.GetValue(1, 1) != 4 || a.GetValue(0, 1) != 2 || a.GetValue(1, 0) != 3) {
+            if (f.GetValue(0, 0) != 1 || f.GetValue(1, 1) != 4 || f.GetValue(0, 1) != 2 || f.GetValue(1, 0) != 3) {
                 Error("Instance GetValue broken");
             }
-            if (Matrix2.GetValue(a, 0, 0) != 1 || Matrix2.GetValue(a, 1, 1) != 4 || Matrix2.GetValue(a, 0, 1) != 2 || Matrix2.GetValue(a, 1, 0) != 3) {
+            if (Matrix2.GetValue(f, 0, 0) != 1 || Matrix2.GetValue(f, 1, 1) != 4 || Matrix2.GetValue(f, 0, 1) != 2 || Matrix2.GetValue(f, 1, 0) != 3) {
                 Error("Instance GetValue broken");
             }
 
             Matrix2 b = new Matrix2(5, 6, 
                                     7, 8);
-            Matrix2 c = a + b;
-            if (c[0,0] != 6 ||c[0,1] != 8 || c[1,0] != 10 ||c[1,1] != 12) {
+            Matrix2 h = f + b;
+            if (h[0,0] != 6 ||h[0,1] != 8 || h[1,0] != 10 ||h[1,1] != 12) {
                 Error("Addition operator is wrong");
             }
-            c = a - b;
-            if (c[0, 0] != -4 || c[0, 1] != -4 || c[1, 0] != -4 || c[1, 1] != -4) {
+            h = f - b;
+            if (h[0, 0] != -4 || h[0, 1] != -4 || h[1, 0] != -4 || h[1, 1] != -4) {
                 Error("Subtraction operator is wrong");
             }
-            c = c * 2;
-            if (c[0, 0] != -8 || c[0, 1] != -8 || c[1, 0] != -8 || c[1, 1] != -8) {
+            h = h * 2;
+            if (h[0, 0] != -8 || h[0, 1] != -8 || h[1, 0] != -8 || h[1, 1] != -8) {
                 Error("multiply operator is wrong");
             }
-            c = a / b;
-            if (c[0, 0] != 1.0f/5.0f || c[0, 1] != 2.0f/6.0f || c[1, 0] != 3.0f/7.0f || c[1, 1] != 4.0f/8.0f) {
+            h = f / b;
+            if (h[0, 0] != 1.0f/5.0f || h[0, 1] != 2.0f/6.0f || h[1, 0] != 3.0f/7.0f || h[1, 1] != 4.0f/8.0f) {
                 Error("Division operator is wrong");
             }
             Vector2 v = new Vector2(2, 3);
@@ -119,11 +119,12 @@ namespace Math_Implementation {
             Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
             Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");
 
-            a = new Matrix2(4, 3, 3, 1);
-            c = Matrix2.Inverse(a);
-            Console.WriteLine(c[0, 0].ToString() + '\t' + c[0, 1].ToString());
-            Console.WriteLine(c[1, 0].ToString() + '\t' + c[1, 1].ToString() + "\n");*/
-            /*Matrix4 a4 = new Matrix4 ( 9,8,9,8,
+            f = new Matrix2(4, 3, 3, 1);
+            h = Matrix2.Inverse(f);
+            Console.WriteLine(h[0, 0].ToString() + '\t' + h[0, 1].ToString());
+            Console.WriteLine(h[1, 0].ToString() + '\t' + h[1, 1].ToString() + "\n");
+
+            Matrix4 a4 = new Matrix4 ( 9,8,9,8,
                                        2,4,3,2,
                                        0,1,3,3,
                                        0,0,0,1);
@@ -141,7 +142,7 @@ namespace Math_Implementation {
                     Console.WriteLine();
                 }
             }
-            */
+            
             Quaternion q = Quaternion.AngleAxis(90.0f, 1.0f, 0.0f, 0.0f);
             Matrix4 m = Matrix4.AngleAxis(90.0f, 1.0f, 0.0f, 0.0f);
             if (q.ToMatrix() != m) {
@@ -172,9 +173,9 @@ namespace Math_Implementation {
             }
 
         Vector3 v1 = Matrix4.MultiplyVector(Matrix4.AngleAxis(30f, 0.5f, 0.5f, 0.0f),new Vector3(1.0f, 2.0f, 3.0f));
-        Vector3 v2 = Quaternion.AngleAxis(30f, 0.5f, 0.5f, 0.0f) * new Vector3(1.0f, 2.0f, 3.0f);
-        if (v1 != v2) {
-            Error("v1 != v2");
+        Vector3 v5 = Quaternion.AngleAxis(30f, 0.5f, 0.5f, 0.0f) * new Vector3(1.0f, 2.0f, 3.0f);
+        if (v1 != v5) {
+            Error("v1 != v5");
         }
     Console.ReadLine();
         }

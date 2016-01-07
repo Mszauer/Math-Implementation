@@ -151,11 +151,14 @@ namespace Math_Implementation {
             vector.X *= -1.0f;
             vector.Y *= -1.0f;
         }
+        private static bool Fequal(float a, float b) {
+            return Math.Abs(a - b) < 0.00001;
+        }
         public static bool operator ==(Vector2 vector1,Vector2 vector2) {
-            return vector1.X==vector2.X && vector1.Y ==vector2.Y ? true : false; 
+            return Fequal(vector1.X,vector2.X) && Fequal(vector1.Y,vector2.Y) ? true : false; 
         }
         public static bool operator !=(Vector2 vector1, Vector2 vector2) {
-            return vector1.X != vector2.X && vector1.Y != vector2.Y ? true : false;
+            return !Fequal(vector1.X, vector2.X) || !Fequal(vector1.Y, vector2.Y) ? true : false;
         }
         public static bool operator >=(Vector2 vector1, Vector2 vector2) {
             return vector1.LengthSquared() >= vector2.LengthSquared() ? true : false;

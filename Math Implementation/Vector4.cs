@@ -124,11 +124,14 @@ namespace Math_Implementation {
             Y *= -1;
             Z *= -1;
         }
+        public static bool Fequal(float a, float b) {
+            return Math.Abs(a - b) < 0.0001;
+        }
         public static bool operator ==(Vector4 vectorA, Vector4 vectorB) {
-            return vectorA.X == vectorB.X && vectorA.Y == vectorB.Y && vectorA.Z == vectorB.Z ? true : false;
+            return Fequal(vectorA.X,vectorB.X) && Fequal(vectorA.Y,vectorB.Y) && Fequal(vectorA.Z,vectorB.Z) ? true : false;
         }
         public static bool operator !=(Vector4 vectorA, Vector4 vectorB) {
-            return vectorA.X != vectorB.X && vectorA.Y != vectorB.Y && vectorA.Z != vectorB.Z ? true : false;
+            return !Fequal(vectorA.X,vectorB.X) || !Fequal(vectorA.Y,vectorB.Y) || !Fequal(vectorA.Z,vectorB.Z) ? true : false;
         }
         public static bool operator >=(Vector4 vectorA, Vector4 vectorB) {
             return vectorA.LengthSquared() >= vectorB.LengthSquared() ? true : false;

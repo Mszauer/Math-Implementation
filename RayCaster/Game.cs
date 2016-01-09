@@ -23,10 +23,8 @@ namespace RayCaster {
         Vector2 playerPos = new Vector2(22f,12f);
         Vector2 playerDir = new Vector2(-1f,0f);
         Vector2 playerCam = new Vector2(0f,0.66f); //always perpendicular to direction
-        float w = 24.0f;//how many columns get rayed
-        float h = 600;//height of screen in pixels
-        float oldTime = 0.0f;//time of prev frame
-        float time = 0.0f;//time of current frame
+        float w = 800f;//how many columns get rayed
+        float h = 600f;//height of screen in pixels
 
         private Game() {
         }

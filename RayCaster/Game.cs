@@ -18,7 +18,7 @@ namespace RayCaster {
                 return instance;
             }
         }
-        int moveSpeed = 10;
+        float moveSpeed = 5.0f;
         int[][] worldMap = null;
         Vector2 playerPos = new Vector2(22f,12f);
         Vector2 playerDir = new Vector2(-1f,0f);
@@ -61,11 +61,18 @@ namespace RayCaster {
         }
         public void Update(float dTime) {
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.W) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Up)) {
-                //no collision check
-                playerPos += playerDir * moveSpeed*dTime;
+                Vector2 worldPosition = playerPos + playerDir * moveSpeed;
+                if (worldMap[(int)worldPosition.X][(int)playerPos.Y] > 0 || worldMap[(int)playerPos.X][(int)worldPosition.Y] > 0) {
+                    playerPos += playerDir * moveSpeed*dTime;
+                }
+
             }
             else if (InputManager.Instance.KeyDown(OpenTK.Input.Key.S) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Down)) {
                 playerPos -= playerDir * moveSpeed*dTime;
+                if (worldMap[(int)playerPos.X / 24][(int)playerPos.Y / 24] > 0) {
+                    //move player back to previous position
+                    playerPos += playerDir * moveSpeed * dTime;
+                }
             }
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.A) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Left)) {
                 //rotate left
@@ -81,7 +88,7 @@ namespace RayCaster {
         public void Render() {
             for (int x = 0; x < w; x++) {//loop through each column
                 //calculate ray position and direction
-                float cameraX = 2 * x / w - 1;//x coordinate in camera space
+                float cameraX = 2 * (float)x / w - 1;//x coordinate in camera space
                 Vector2 rayPos = new Vector2(playerPos.X, playerPos.Y);
                 Vector2 rayDir = playerDir + playerCam *  cameraX;
                 //which box of the map it is in
@@ -137,19 +144,19 @@ namespace RayCaster {
                 }//end hit
                 //calculate distance project on camera direction
                 if (side == 0) {
-                    perpWallDist = Math.Abs((mapPos.X - rayPos.X + (1.0f - step.X) / 2.0f) / rayDir.X);
+                    perpWallDist = (float)Math.Abs((mapPos.X - rayPos.X + (1.0f - step.X) / 2.0f) / rayDir.X);
                 }
                 else {
-                    perpWallDist = Math.Abs((mapPos.Y - rayPos.Y + (1.0f - step.Y) / 2.0f) / rayDir.Y);
+                    perpWallDist = (float)Math.Abs((mapPos.Y - rayPos.Y + (1.0f - step.Y) / 2.0f) / rayDir.Y);
                 }
 
                 //calculate height of line to draw on screen
-                int lineHeight = (int)Math.Abs((h / perpWallDist));
+                float lineHeight = Math.Abs((h / perpWallDist));
                 //calculate lowest and highest pixel to fill in current stripe
-                int drawStart = (int)(-(lineHeight / 2.0f) + (h / 2.0f));
+                float drawStart = (-(lineHeight / 2.0f) + (h / 2.0f));
                 drawStart = drawStart < 0 ? 0 : drawStart;//cap start at 0
-                int drawEnd = (int)(lineHeight / 2.0f + h / 2.0f);
-                drawEnd = drawEnd >= h ? (int)(h - 1f) : drawEnd; //cap end at h-1
+                float drawEnd = (lineHeight / 2.0f + h / 2.0f);
+                drawEnd = drawEnd >= h ? (h - 1f) : drawEnd; //cap end at h-1
                 Color renderColor = Color.Yellow; ;
                 //set color according to value
                 if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 1) {
@@ -169,7 +176,7 @@ namespace RayCaster {
                     renderColor = Color.FromArgb(255, renderColor.R / 2, renderColor.G / 2, renderColor.B / 2);
                 }
                 //draw pizels of the stripe as vertical line
-                GraphicsManager.Instance.DrawLine(new Point(x, drawStart), new Point(x, drawEnd), renderColor);
+                GraphicsManager.Instance.DrawLine(new Point(x, (int)drawStart), new Point(x, (int)drawEnd), renderColor);
             }
         }
         public void Shutdown() {

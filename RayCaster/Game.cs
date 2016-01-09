@@ -83,7 +83,7 @@ namespace RayCaster {
                 //calculate ray position and direction
                 float cameraX = 2 * x / w - 1;//x coordinate in camera space
                 Vector2 rayPos = new Vector2(playerPos.X, playerPos.Y);
-                Vector2 rayDir = new Vector2(playerDir.X + playerCam.X * cameraX, playerDir.Y + playerCam.Y * cameraX);
+                Vector2 rayDir = playerDir + playerCam *  cameraX;
                 //which box of the map it is in
                 Vector2 mapPos = new Vector2(rayPos.X, rayPos.Y);
                 //length of ray from current position to next x or y-side
@@ -96,24 +96,24 @@ namespace RayCaster {
                 //what direction to step in x or y(+1 or -1)
                 Vector2 step = new Vector2();
 
-                int hit = 0; //was there a wall hit
-                int side = 0;//was a NS or EW wall hit
+                float hit = 0f; //was there a wall hit
+                float side = 0f;//was a NS or EW wall hit
                 
                 //calculate step and initial sideDist
-                if (rayDir.X < 0) {
-                    step.X = -1;
+                if (rayDir.X < 0f) {
+                    step.X = -1f;
                     sideDist.X = (rayPos.X - mapPos.X) * deltaDist.X;
                 }
                 else {
-                    step.X = 1;
+                    step.X = 1f;
                     sideDist.X = (mapPos.X + 1.0f - rayPos.X) * deltaDist.X;
                 }
-                if (rayDir.Y < 0) {
-                    step.Y = -1;
+                if (rayDir.Y < 0f) {
+                    step.Y = -1f;
                     sideDist.Y = (rayPos.Y - mapPos.Y) * deltaDist.Y;
                 }
                 else {
-                    step.Y = 1;
+                    step.Y = 1f;
                     sideDist.Y = (mapPos.Y + 1.0f - rayPos.Y) * deltaDist.Y;
                 }
                 
@@ -123,24 +123,24 @@ namespace RayCaster {
                     if (sideDist.X < sideDist.Y) {
                         sideDist.X += deltaDist.X;
                         mapPos.X += step.X;
-                        side = 0;
+                        side = 0f;
                     }
                     else {
                         sideDist.Y += deltaDist.Y;
                         mapPos.Y += step.Y;
-                        side = 1;
+                        side = 1f;
                     }
                     //check if ray has hit a wall
                     if (worldMap[(int)mapPos.X][(int)mapPos.Y] > 0) {
-                        hit = 1;
+                        hit = 1f;
                     }
                 }//end hit
                 //calculate distance project on camera direction
                 if (side == 0) {
-                    perpWallDist = Math.Abs((mapPos.X - rayPos.X + (1 - step.X) / 2) / rayDir.X);
+                    perpWallDist = Math.Abs((mapPos.X - rayPos.X + (1.0f - step.X) / 2.0f) / rayDir.X);
                 }
                 else {
-                    perpWallDist = Math.Abs((mapPos.Y - rayPos.Y + (1 - step.Y) / 2) / rayDir.Y);
+                    perpWallDist = Math.Abs((mapPos.Y - rayPos.Y + (1.0f - step.Y) / 2.0f) / rayDir.Y);
                 }
 
                 //calculate height of line to draw on screen
@@ -149,7 +149,7 @@ namespace RayCaster {
                 int drawStart = (int)(-(lineHeight / 2.0f) + (h / 2.0f));
                 drawStart = drawStart < 0 ? 0 : drawStart;//cap start at 0
                 int drawEnd = (int)(lineHeight / 2.0f + h / 2.0f);
-                drawEnd = drawEnd >= h ? (int)(h - 1) : drawEnd; //cap end at h-1
+                drawEnd = drawEnd >= h ? (int)(h - 1f) : drawEnd; //cap end at h-1
                 Color renderColor = Color.Yellow; ;
                 //set color according to value
                 if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 1) {

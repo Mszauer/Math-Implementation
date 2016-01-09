@@ -61,17 +61,13 @@ namespace RayCaster {
         }
         public void Update(float dTime) {
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.W) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Up)) {
-                Vector2 worldPosition = playerPos + playerDir * moveSpeed;
-                if (worldMap[(int)worldPosition.X][(int)playerPos.Y] > 0 || worldMap[(int)playerPos.X][(int)worldPosition.Y] > 0) {
-                    playerPos += playerDir * moveSpeed*dTime;
+                if (worldMap[(int)(playerPos.X+playerDir.X*moveSpeed)][(int)(playerPos.Y+playerDir.Y*moveSpeed)] == 0) {
+                    playerPos += playerDir * moveSpeed * dTime;
                 }
-
             }
             else if (InputManager.Instance.KeyDown(OpenTK.Input.Key.S) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Down)) {
-                playerPos -= playerDir * moveSpeed*dTime;
-                if (worldMap[(int)playerPos.X / 24][(int)playerPos.Y / 24] > 0) {
-                    //move player back to previous position
-                    playerPos += playerDir * moveSpeed * dTime;
+                if (worldMap[(int)(playerPos.X + playerDir.X * moveSpeed)][(int)(playerPos.Y + playerDir.Y * moveSpeed)] == 0) {
+                    playerPos -= playerDir * moveSpeed * dTime;
                 }
             }
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.A) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Left)) {
@@ -92,7 +88,8 @@ namespace RayCaster {
                 Vector2 rayPos = new Vector2(playerPos.X, playerPos.Y);
                 Vector2 rayDir = playerDir + playerCam *  cameraX;
                 //which box of the map it is in
-                Vector2 mapPos = new Vector2(rayPos.X, rayPos.Y);
+                int mapX = (int)rayPos.X;
+                int mapY = (int)rayPos.Y;
                 //length of ray from current position to next x or y-side
                 Vector2 sideDist = new Vector2();
 
@@ -109,19 +106,19 @@ namespace RayCaster {
                 //calculate step and initial sideDist
                 if (rayDir.X < 0f) {
                     step.X = -1f;
-                    sideDist.X = (rayPos.X - mapPos.X) * deltaDist.X;
+                    sideDist.X = (rayPos.X - mapX) * deltaDist.X;
                 }
                 else {
                     step.X = 1f;
-                    sideDist.X = (mapPos.X + 1.0f - rayPos.X) * deltaDist.X;
+                    sideDist.X = (mapX + 1.0f - rayPos.X) * deltaDist.X;
                 }
                 if (rayDir.Y < 0f) {
                     step.Y = -1f;
-                    sideDist.Y = (rayPos.Y - mapPos.Y) * deltaDist.Y;
+                    sideDist.Y = (rayPos.Y - mapY) * deltaDist.Y;
                 }
                 else {
                     step.Y = 1f;
-                    sideDist.Y = (mapPos.Y + 1.0f - rayPos.Y) * deltaDist.Y;
+                    sideDist.Y = (mapY + 1.0f - rayPos.Y) * deltaDist.Y;
                 }
                 
                 //perform dda
@@ -129,25 +126,25 @@ namespace RayCaster {
                     //jump to next map squar in x or y dir
                     if (sideDist.X < sideDist.Y) {
                         sideDist.X += deltaDist.X;
-                        mapPos.X += step.X;
+                        mapX += (int)step.X;
                         side = 0f;
                     }
                     else {
                         sideDist.Y += deltaDist.Y;
-                        mapPos.Y += step.Y;
+                        mapY += (int)step.Y;
                         side = 1f;
                     }
                     //check if ray has hit a wall
-                    if (worldMap[(int)mapPos.X][(int)mapPos.Y] > 0) {
+                    if (worldMap[mapX][mapY] > 0) {
                         hit = 1f;
                     }
                 }//end hit
                 //calculate distance project on camera direction
                 if (side == 0) {
-                    perpWallDist = (float)Math.Abs((mapPos.X - rayPos.X + (1.0f - step.X) / 2.0f) / rayDir.X);
+                    perpWallDist = (float)Math.Abs((mapX - rayPos.X + (1.0f - step.X) / 2.0f) / rayDir.X);
                 }
                 else {
-                    perpWallDist = (float)Math.Abs((mapPos.Y - rayPos.Y + (1.0f - step.Y) / 2.0f) / rayDir.Y);
+                    perpWallDist = (float)Math.Abs((mapY - rayPos.Y + (1.0f - step.Y) / 2.0f) / rayDir.Y);
                 }
 
                 //calculate height of line to draw on screen
@@ -159,16 +156,16 @@ namespace RayCaster {
                 drawEnd = drawEnd >= h ? (h - 1f) : drawEnd; //cap end at h-1
                 Color renderColor = Color.Yellow; ;
                 //set color according to value
-                if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 1) {
+                if (worldMap[mapX][mapY] == 1) {
                     renderColor = Color.Red;
                 }
-                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 2) {
+                else if (worldMap[mapX][mapY] == 2) {
                     renderColor = Color.Green;
                 }
-                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 3) {
+                else if (worldMap[mapX][mapY] == 3) {
                     renderColor = Color.Blue;
                 }
-                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 4) {
+                else if (worldMap[mapX][mapY] == 4) {
                     renderColor = Color.White;
                 }
                 //shading

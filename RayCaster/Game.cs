@@ -88,6 +88,7 @@ namespace RayCaster {
             }
         }
         public void Render() {
+            //box casting
             for (int x = 0; x < w; x++) {//loop through each column
                 //calculate ray position and direction
                 float cameraX = 2 * (float)x / w - 1;//x coordinate in camera space
@@ -180,7 +181,49 @@ namespace RayCaster {
                 }
                 //draw pizels of the stripe as vertical line
                 GraphicsManager.Instance.DrawLine(new Point(x, (int)drawStart), new Point(x, (int)drawEnd), renderColor);
+
+                int wallX = 0;//where the wall was hit
+                if (side == 1) {
+                    wallX = (int)(rayPos.X+((mapY - rayPos.Y + (1 - step.Y) / 2) / rayDir.Y) * rayDir.Y);
+                }
+                else {
+                    wallX = (int)(rayPos.Y + ((mapX - rayPos.X + (1 - step.X) / 2) / rayDir.X) * rayDir.X);
+                }
+                wallX -= (int)Math.Floor((double)wallX);
+
+                //floor casting
+                Vector2 floorWall = new Vector2();
+                //4 different wall directions possible
+                if (side == 0 && rayDir.X > 0.0f) {
+                    floorWall.X = mapX;
+                    floorWall.Y = mapY + wallX;
+                }
+                else if (side == 0 && rayDir.X < 0.0f) {
+                    floorWall.X = mapX + 1.0f;
+                    floorWall.Y = mapY + wallX;
+                }
+                else if (side == 1 && rayDir.Y > 0.0f) {
+                    floorWall.X = mapX + wallX;
+                    floorWall.Y = mapY;
+                }
+                else {
+                    floorWall.X = mapX + wallX;
+                    floorWall.Y = mapY + 1.0f;
+                }
+                float distWall = perpWallDist;
+                float distPlayer = 0.0f;
+                float currentDist = 0.0f;
+                if (drawEnd < 0) {
+                    drawEnd = h; //becomes <0 when the integer overflows
+
+                    float weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+                    Vector2 currentFloor = floorWall * weight + playerPos * (1.0f - weight);
+
+                    
+                }
             }
+            
         }
         public void Shutdown() {
 

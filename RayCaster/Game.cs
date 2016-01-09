@@ -60,14 +60,20 @@ namespace RayCaster {
            
         }
         public void Update(float dTime) {
+            int futureX = (int)(playerPos.X + playerDir.X * moveSpeed*dTime);
+            int futureY = (int)(playerPos.Y + playerDir.Y * moveSpeed*dTime);
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.W) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Up)) {
-                if (worldMap[(int)(playerPos.X+playerDir.X*moveSpeed)][(int)(playerPos.Y+playerDir.Y*moveSpeed)] == 0) {
-                    playerPos += playerDir * moveSpeed * dTime;
+                if (futureX < worldMap.Length && futureX >= 0 && futureY < worldMap[futureX].Length && futureY >= 0) {
+                    if (worldMap[futureX][futureY] == 0) {
+                        playerPos += playerDir * moveSpeed * dTime;
+                    }
                 }
             }
             else if (InputManager.Instance.KeyDown(OpenTK.Input.Key.S) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Down)) {
-                if (worldMap[(int)(playerPos.X + playerDir.X * moveSpeed)][(int)(playerPos.Y + playerDir.Y * moveSpeed)] == 0) {
-                    playerPos -= playerDir * moveSpeed * dTime;
+                if (futureX < worldMap.Length && futureX >= 0 && futureY < worldMap[futureX].Length && futureY >= 0) {
+                    if (worldMap[futureX][futureY] == 0) {
+                        playerPos -= playerDir * moveSpeed * dTime;
+                    }
                 }
             }
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.A) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Left)) {

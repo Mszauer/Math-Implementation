@@ -24,7 +24,7 @@ namespace RayCaster {
         Vector2 playerDir = new Vector2(-1f,0f);
         Vector2 playerCam = new Vector2(0f,0.66f); //always perpendicular to direction
         float w = 800f;//how many columns get rayed
-        float h = 600f;//height of screen in pixels
+        float h = 600f;//how many pixels the lines come down
 
         private Game() {
         }
@@ -151,28 +151,23 @@ namespace RayCaster {
                 int drawEnd = (int)(lineHeight / 2.0f + h / 2.0f);
                 drawEnd = drawEnd >= h ? (int)(h - 1) : drawEnd; //cap end at h-1
                 Color renderColor = Color.Yellow; ;
-                //loop through map to set colors according to value
-                for (int col = 0; col < 24; col++) {
-                    for (int row = 0; row < 24; row++) {
-                        if (worldMap[col][row] == 1) {
-                            renderColor = Color.Red;
-                            break;
-                        }
-                        else if (worldMap[col][row] == 2) {
-                            renderColor = Color.Green;
-                            break;
-                        }
-                        else if (worldMap[col][row] == 3) {
-                            renderColor = Color.Blue;
-                            break;
-                        }
-                        else if (worldMap[col][row] == 4) {
-                            renderColor = Color.White;
-                            break;
-                        }
-                    }
+                //set color according to value
+                if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 1) {
+                    renderColor = Color.Red;
                 }
-
+                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 2) {
+                    renderColor = Color.Green;
+                }
+                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 3) {
+                    renderColor = Color.Blue;
+                }
+                else if (worldMap[(int)mapPos.X][(int)mapPos.Y] == 4) {
+                    renderColor = Color.White;
+                }
+                //shading
+                if (side == 1) {
+                    renderColor = Color.FromArgb(255, renderColor.R / 2, renderColor.G / 2, renderColor.B / 2);
+                }
                 //draw pizels of the stripe as vertical line
                 GraphicsManager.Instance.DrawLine(new Point(x, drawStart), new Point(x, drawEnd), renderColor);
             }

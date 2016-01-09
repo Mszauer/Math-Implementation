@@ -18,7 +18,7 @@ namespace RayCaster {
                 return instance;
             }
         }
-        int moveSpeed = 30;
+        int moveSpeed = 10;
         int[][] worldMap = null;
         Vector2 playerPos = new Vector2(22f,12f);
         Vector2 playerDir = new Vector2(-1f,0f);
@@ -62,10 +62,10 @@ namespace RayCaster {
         public void Update(float dTime) {
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.W) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Up)) {
                 //no collision check
-                playerPos.X += playerDir.X * moveSpeed*dTime;
+                playerPos += playerDir * moveSpeed*dTime;
             }
             else if (InputManager.Instance.KeyDown(OpenTK.Input.Key.S) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Down)) {
-                playerPos.X -= playerDir.X * moveSpeed*dTime;
+                playerPos -= playerDir * moveSpeed*dTime;
             }
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.A) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Left)) {
                 //rotate left
@@ -98,7 +98,7 @@ namespace RayCaster {
 
                 int hit = 0; //was there a wall hit
                 int side = 0;//was a NS or EW wall hit
-
+                
                 //calculate step and initial sideDist
                 if (rayDir.X < 0) {
                     step.X = -1;
@@ -116,7 +116,7 @@ namespace RayCaster {
                     step.Y = 1;
                     sideDist.Y = (mapPos.Y + 1.0f - rayPos.Y) * deltaDist.Y;
                 }
-
+                
                 //perform dda
                 while (hit == 0) {
                     //jump to next map squar in x or y dir
@@ -146,7 +146,7 @@ namespace RayCaster {
                 //calculate height of line to draw on screen
                 int lineHeight = (int)Math.Abs((h / perpWallDist));
                 //calculate lowest and highest pixel to fill in current stripe
-                int drawStart = -(int)((lineHeight / 2.0f) + (h / 2.0f));
+                int drawStart = (int)(-(lineHeight / 2.0f) + (h / 2.0f));
                 drawStart = drawStart < 0 ? 0 : drawStart;//cap start at 0
                 int drawEnd = (int)(lineHeight / 2.0f + h / 2.0f);
                 drawEnd = drawEnd >= h ? (int)(h - 1) : drawEnd; //cap end at h-1

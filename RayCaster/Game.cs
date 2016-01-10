@@ -60,29 +60,40 @@ namespace RayCaster {
            
         }
         public void Update(float dTime) {
-            int futureX = (int)(playerPos.X + playerDir.X * moveSpeed*dTime);
-            int futureY = (int)(playerPos.Y + playerDir.Y * moveSpeed*dTime);
+            Vector2 futureForward = (playerPos + playerDir * moveSpeed*dTime); //where the player will move too
+            Vector2 futureBackward = (playerPos - playerDir * moveSpeed*dTime); //where the player will move too
+
+            //Movement
+            //Forward movement
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.W) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Up)) {
-                if (futureX < worldMap.Length && futureX >= 0 && futureY < worldMap[futureX].Length && futureY >= 0) {
-                    if (worldMap[futureX][futureY] == 0) {
+                //is anticipated movement within bounds?
+                if (futureForward.X < worldMap.Length && futureForward.X >= 0 && futureForward.Y < worldMap[(int)futureForward.X].Length && futureForward.Y >= 0) {
+                    //is anticipated movement onto moveable tile?
+                    if (worldMap[(int)futureForward.X][(int)futureForward.Y] == 0) {
                         playerPos += playerDir * moveSpeed * dTime;
                     }
                 }
             }
+            
+            //Backward movement
             else if (InputManager.Instance.KeyDown(OpenTK.Input.Key.S) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Down)) {
-                if (futureX < worldMap.Length && futureX >= 0 && futureY < worldMap[futureX].Length && futureY >= 0) {
-                    if (worldMap[futureX][futureY] == 0) {
+                //is anticipated movement within bounds
+                if (futureBackward.X < worldMap.Length && futureBackward.X >= 0 && futureBackward.Y < worldMap[(int)futureBackward.X].Length && futureBackward.Y >= 0) {
+                    //is anticipated movement onto moveable tile
+                    if (worldMap[(int)futureBackward.X][(int)futureBackward.Y] == 0) {
                         playerPos -= playerDir * moveSpeed * dTime;
                     }
                 }
             }
+            //turn left
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.A) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Left)) {
-                //rotate left
+                //rotate vectors left
                 playerDir = Matrix2.Rotation(90.0f * dTime) * playerDir;
                 playerCam = Matrix2.Rotation(90.0f * dTime) * playerCam;
             }
+            //turn right
             if (InputManager.Instance.KeyDown(OpenTK.Input.Key.D) || InputManager.Instance.KeyDown(OpenTK.Input.Key.Right)) {
-                //rotate left
+                //rotate vectors right
                 playerDir = Matrix2.Rotation(-90.0f * dTime) * playerDir;
                 playerCam = Matrix2.Rotation(-90.0f * dTime) * playerCam;
             }

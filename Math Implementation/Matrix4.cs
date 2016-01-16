@@ -105,20 +105,20 @@ namespace Math_Implementation {
             result[0, 2] = matrixA[0, 0] * matrixB[0, 2] + matrixA[0, 1] * matrixB[1, 2] + matrixA[0, 2] * matrixB[2, 2] + matrixA[0, 3] * matrixB[3, 2];
             result[0, 3] = matrixA[0, 0] * matrixB[0, 3] + matrixA[0, 1] * matrixB[1, 3] + matrixA[0, 2] * matrixB[2, 3] + matrixA[0, 3] * matrixB[3, 3];
             //
-            result[1, 0] = matrixA[1, 0] * matrixB[0, 0] + matrixA[1, 1] * matrixB[1, 0] + matrixA[1, 2] * matrixB[2, 0] + matrixA[0, 3] * matrixB[3, 0];
-            result[1, 1] = matrixA[1, 0] * matrixB[0, 1] + matrixA[1, 1] * matrixB[1, 1] + matrixA[1, 2] * matrixB[2, 1] + matrixA[0, 3] * matrixB[3, 1];
-            result[1, 2] = matrixA[1, 0] * matrixB[0, 2] + matrixA[1, 1] * matrixB[1, 2] + matrixA[1, 2] * matrixB[2, 2] + matrixA[0, 3] * matrixB[3, 2];
-            result[1, 3] = matrixA[1, 0] * matrixB[0, 3] + matrixA[1, 1] * matrixB[1, 3] + matrixA[1, 2] * matrixB[2, 3] + matrixA[0, 3] * matrixB[3, 3];
+            result[1, 0] = matrixA[1, 0] * matrixB[0, 0] + matrixA[1, 1] * matrixB[1, 0] + matrixA[1, 2] * matrixB[2, 0] + matrixA[1, 3] * matrixB[3, 0];
+            result[1, 1] = matrixA[1, 0] * matrixB[0, 1] + matrixA[1, 1] * matrixB[1, 1] + matrixA[1, 2] * matrixB[2, 1] + matrixA[1, 3] * matrixB[3, 1];
+            result[1, 2] = matrixA[1, 0] * matrixB[0, 2] + matrixA[1, 1] * matrixB[1, 2] + matrixA[1, 2] * matrixB[2, 2] + matrixA[1, 3] * matrixB[3, 2];
+            result[1, 3] = matrixA[1, 0] * matrixB[0, 3] + matrixA[1, 1] * matrixB[1, 3] + matrixA[1, 2] * matrixB[2, 3] + matrixA[1, 3] * matrixB[3, 3];
             //
-            result[2, 0] = matrixA[2, 0] * matrixB[0, 0] + matrixA[2, 1] * matrixB[1, 0] + matrixA[2, 2] * matrixB[2, 0] + matrixA[0, 3] * matrixB[3, 0];
-            result[2, 1] = matrixA[2, 0] * matrixB[0, 1] + matrixA[2, 1] * matrixB[1, 1] + matrixA[2, 2] * matrixB[2, 1] + matrixA[0, 3] * matrixB[3, 1];
-            result[2, 2] = matrixA[2, 0] * matrixB[0, 2] + matrixA[2, 1] * matrixB[1, 2] + matrixA[2, 2] * matrixB[2, 2] + matrixA[0, 3] * matrixB[3, 2];
-            result[2, 3] = matrixA[2, 0] * matrixB[0, 3] + matrixA[2, 1] * matrixB[1, 3] + matrixA[2, 3] * matrixB[2, 3] + matrixA[0, 3] * matrixB[3, 3];
+            result[2, 0] = matrixA[2, 0] * matrixB[0, 0] + matrixA[2, 1] * matrixB[1, 0] + matrixA[2, 2] * matrixB[2, 0] + matrixA[2, 3] * matrixB[3, 0];
+            result[2, 1] = matrixA[2, 0] * matrixB[0, 1] + matrixA[2, 1] * matrixB[1, 1] + matrixA[2, 2] * matrixB[2, 1] + matrixA[2, 3] * matrixB[3, 1];
+            result[2, 2] = matrixA[2, 0] * matrixB[0, 2] + matrixA[2, 1] * matrixB[1, 2] + matrixA[2, 2] * matrixB[2, 2] + matrixA[2, 3] * matrixB[3, 2];
+            result[2, 3] = matrixA[2, 0] * matrixB[0, 3] + matrixA[2, 1] * matrixB[1, 3] + matrixA[2, 2] * matrixB[2, 3] + matrixA[2, 3] * matrixB[3, 3];
             //
-            result[3, 0] = matrixA[3, 0] * matrixB[0, 0] + matrixA[3, 1] * matrixB[1, 0] + matrixA[3, 2] * matrixB[2, 0] + matrixA[0, 3] * matrixB[3, 0];
-            result[3, 1] = matrixA[3, 0] * matrixB[0, 1] + matrixA[3, 1] * matrixB[1, 1] + matrixA[3, 2] * matrixB[2, 1] + matrixA[0, 3] * matrixB[3, 1];
-            result[3, 2] = matrixA[3, 0] * matrixB[0, 2] + matrixA[3, 1] * matrixB[1, 2] + matrixA[3, 2] * matrixB[2, 2] + matrixA[0, 3] * matrixB[3, 2];
-            result[3, 3] = matrixA[3, 0] * matrixB[0, 3] + matrixA[3, 1] * matrixB[1, 3] + matrixA[3, 3] * matrixB[2, 3] + matrixA[0, 3] * matrixB[3, 3];
+            result[3, 0] = matrixA[3, 0] * matrixB[0, 0] + matrixA[3, 1] * matrixB[1, 0] + matrixA[3, 2] * matrixB[2, 0] + matrixA[3, 3] * matrixB[3, 0];
+            result[3, 1] = matrixA[3, 0] * matrixB[0, 1] + matrixA[3, 1] * matrixB[1, 1] + matrixA[3, 2] * matrixB[2, 1] + matrixA[3, 3] * matrixB[3, 1];
+            result[3, 2] = matrixA[3, 0] * matrixB[0, 2] + matrixA[3, 1] * matrixB[1, 2] + matrixA[3, 2] * matrixB[2, 2] + matrixA[3, 3] * matrixB[3, 2];
+            result[3, 3] = matrixA[3, 0] * matrixB[0, 3] + matrixA[3, 1] * matrixB[1, 3] + matrixA[3, 3] * matrixB[2, 3] + matrixA[3, 3] * matrixB[3, 3];
             return result;
         }
         //transpose
@@ -240,16 +240,18 @@ namespace Math_Implementation {
         }
         public static Matrix4 Translate(Vector3 vectorA) {
             Matrix4 result = new Matrix4();
-            result[0, 0] = vectorA[0];
-            result[1, 1] = vectorA[1];
-            result[2, 2] = vectorA[2];
+            result[0, 3] = vectorA[0];
+            result[1, 3] = vectorA[1];
+            result[2, 3] = vectorA[2];
+            result[3, 3] = 1.0f;
             return result;
         }
-        public static Matrix4 Scale(Matrix4 matrixA,Vector3 vectorA) {
+        public static Matrix4 Scale(Vector3 vectorA) {
             Matrix4 result = new Matrix4();
             result[0, 0] = vectorA[0];
             result[1, 1] = vectorA[1];
             result[2, 2] = vectorA[2];
+            result[3, 3] = 1.0f;
             return result;
         }
         public static Vector3 MultiplyVector(Matrix4 matrixA, Vector3 vectorA) {

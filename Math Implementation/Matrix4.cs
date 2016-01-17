@@ -3,6 +3,11 @@
 namespace Math_Implementation {
     class Matrix4 {
         public float[] Matrix = null;
+        public float[] OpenGL {
+            get {
+                return Transpose(this).Matrix;
+            }
+        }
         public float this[int i] {
             get {
                 return Matrix[i];
@@ -267,6 +272,46 @@ namespace Math_Implementation {
             result[1] = (matrixA[1, 0] * vectorA[0]) + (matrixA[1, 1] * vectorA[1]) + (matrixA[1, 2] * vectorA[2]) + (matrixA[1, 3] * 1.0f);
             result[2] = (matrixA[2, 0] * vectorA[0]) + (matrixA[2, 1] * vectorA[1]) + (matrixA[2, 2] * vectorA[2]) + (matrixA[2, 3] * 1.0f);
             return result;
+        }
+        public static Matrix4 Ortho(float left, float right, float bottom, float top,float near, float far) {
+            Matrix4 result = new Matrix4();
+            result[0, 0] = 2.0f / (right - left);
+            result[0, 3] = -((right + left) / (right - left));
+            result[1, 1] = 2.0f / (top - bottom);
+            result[1, 3] = -((top + bottom) / (top - bottom));
+            result[2, 2] = -2.0f / (far - near);
+            result[2, 3] = -((far + near) / (far - near));
+            result[3, 3] = 1.0f;
+            return result;
+        }
+        public static Matrix4 Frustum(float left, float right, float bottom, float top, float near, float far) {
+            Matrix4 result = new Matrix4();
+            result[0, 0] = (2.0f * near) / (right - left);
+            result[0, 2] = (right + left) / (right - left);
+            result[1, 1] = (2.0f * near) / (top - bottom);
+            result[1, 2] = (top + bottom) / (top - bottom);
+            result[2, 2] = -((far + near) / (far - near));
+            result[2, 3] = -((2.0f * far * near) / (far - near));
+            result[3, 2] = -1.0f;
+            result[3, 3] = 0.0f;
+            return result;
+        }
+        public static Matrix4 LookAt(Vector3 position,Vector3 target,Vector3 worldUp) {
+            Vector3 cameraForward = Vector3.Normalize(position-target);
+            Vector3 cameraRight = Vector3.Normalize(Vector3.Cross(worldUp, cameraForward));
+            Vector3 cameraUp = Vector3.Cross(cameraForward, cameraRight);
+
+            Matrix4 rot = new Matrix4(cameraRight.X, cameraUp.X, cameraForward.X, 0.0f,
+                                      cameraRight.Y, cameraUp.Y, cameraForward.Y, 0.0f,
+                                      cameraRight.Z, cameraUp.Z, cameraForward.Z, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f);
+            Matrix4 trans = Matrix4.Translate(position*-1.0f);
+            return Transpose(rot) * trans;
+        }
+        public static Matrix4 Perspective(float fov, float aspectRatio, float zNear, float zFar) {
+            float yMax = zNear * (float)Math.Tan(fov * (Math.PI / 360.0f));
+            float xMax = yMax * aspectRatio;
+            return Frustum(-xMax, xMax, -yMax, yMax, zNear, zFar);
         }
     }
 }

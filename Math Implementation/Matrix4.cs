@@ -123,7 +123,7 @@ namespace Math_Implementation {
             result[3, 0] = matrixA[3, 0] * matrixB[0, 0] + matrixA[3, 1] * matrixB[1, 0] + matrixA[3, 2] * matrixB[2, 0] + matrixA[3, 3] * matrixB[3, 0];
             result[3, 1] = matrixA[3, 0] * matrixB[0, 1] + matrixA[3, 1] * matrixB[1, 1] + matrixA[3, 2] * matrixB[2, 1] + matrixA[3, 3] * matrixB[3, 1];
             result[3, 2] = matrixA[3, 0] * matrixB[0, 2] + matrixA[3, 1] * matrixB[1, 2] + matrixA[3, 2] * matrixB[2, 2] + matrixA[3, 3] * matrixB[3, 2];
-            result[3, 3] = matrixA[3, 0] * matrixB[0, 3] + matrixA[3, 1] * matrixB[1, 3] + matrixA[3, 3] * matrixB[2, 3] + matrixA[3, 3] * matrixB[3, 3];
+            result[3, 3] = matrixA[3, 0] * matrixB[0, 3] + matrixA[3, 1] * matrixB[1, 3] + matrixA[3, 2] * matrixB[2, 3] + matrixA[3, 3] * matrixB[3, 3];
             return result;
         }
         //transpose
@@ -297,16 +297,16 @@ namespace Math_Implementation {
             return result;
         }
         public static Matrix4 LookAt(Vector3 position,Vector3 target,Vector3 worldUp) {
-            Vector3 cameraForward = Vector3.Normalize(position-target);
-            Vector3 cameraRight = Vector3.Normalize(Vector3.Cross(worldUp, cameraForward));
-            Vector3 cameraUp = Vector3.Cross(cameraForward, cameraRight);
+            Vector3 cameraForward = Vector3.Normalize(target-position);
+            Vector3 cameraRight = Vector3.Normalize(Vector3.Cross(cameraForward, worldUp));
+            Vector3 cameraUp = Vector3.Cross(cameraRight, cameraForward);
 
-            Matrix4 rot = new Matrix4(cameraRight.X, cameraUp.X, cameraForward.X, 0.0f,
-                                      cameraRight.Y, cameraUp.Y, cameraForward.Y, 0.0f,
-                                      cameraRight.Z, cameraUp.Z, cameraForward.Z, 0.0f,
+            Matrix4 rot = new Matrix4(cameraRight.X, cameraUp.X, -cameraForward.X, 0.0f,
+                                      cameraRight.Y, cameraUp.Y, -cameraForward.Y, 0.0f,
+                                      cameraRight.Z, cameraUp.Z, =cameraForward.Z, 0.0f,
                                       0.0f, 0.0f, 0.0f, 1.0f);
-            Matrix4 trans = Matrix4.Translate(position*-1.0f);
-            return Transpose(rot) * trans;
+            Matrix4 trans = Translate(position*-1.0f);
+            return trans * Transpose(rot);
         }
         public static Matrix4 Perspective(float fov, float aspectRatio, float zNear, float zFar) {
             float yMax = zNear * (float)Math.Tan(fov * (Math.PI / 360.0f));

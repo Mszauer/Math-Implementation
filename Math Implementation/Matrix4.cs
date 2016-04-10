@@ -196,14 +196,16 @@ namespace Math_Implementation {
             theta = theta * (float)(Math.PI / 180); //convert to rads
             Matrix4 result = new Matrix4(1, 0, 0, 0,
                                          0, (float)Math.Cos(theta), -(float)Math.Sin(theta), 0,
-                                         0, (float)Math.Sin(theta), (float)Math.Cos(theta), 0);
+                                         0, (float)Math.Sin(theta), (float)Math.Cos(theta), 0,
+                                         0,0,0,1);
             return result;
         }
         public static Matrix4 YRotation(float theta) {
             theta = theta * (float)(Math.PI / 180);
             Matrix4 result = new Matrix4((float)Math.Cos(theta), 0, (float)Math.Sin(theta), 0,
                                          0, 1, 0, 0,
-                                         -(float)Math.Sin(theta), 0, (float)Math.Cos(theta), 0);
+                                         -(float)Math.Sin(theta), 0, (float)Math.Cos(theta), 0,
+                                         0,0,0,1);
             return result;
         }
         public static Matrix4 ZRotation(float theta) {
@@ -303,7 +305,7 @@ namespace Math_Implementation {
 
             Matrix4 rot = new Matrix4(cameraRight.X, cameraUp.X, -cameraForward.X, 0.0f,
                                       cameraRight.Y, cameraUp.Y, -cameraForward.Y, 0.0f,
-                                      cameraRight.Z, cameraUp.Z, =cameraForward.Z, 0.0f,
+                                      cameraRight.Z, cameraUp.Z, -cameraForward.Z, 0.0f,
                                       0.0f, 0.0f, 0.0f, 1.0f);
             Matrix4 trans = Translate(position*-1.0f);
             return trans * Transpose(rot);
